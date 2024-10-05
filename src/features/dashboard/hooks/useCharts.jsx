@@ -19,45 +19,51 @@ export default function useCharts() {
 
   const load = useLoaderData();
   const q = useQuery(ChartQuery);
-  const [timePeriod, cancelledRatio, Reviews] = q.data;
+  if (q) {
+    console.log(q);
 
-  if (Reviews?.data) {
-    Reviews.data.forEach((element) => {
-      ReviewsChartData.push({
-        name: element.stars + " star",
-        users: element.Count,
-      });
-    });
-  }
-  if (timePeriod?.data) {
-    timePeriod.data.forEach((element) => {
-      timePeriodChartData.push({
-        name: element.TimePeriod,
-        value: element.count,
-      });
-    });
-  }
-  console.log(timePeriodChartData);
+    const [timePeriod, cancelledRatio, Reviews] = q.data
+      ? q.data
+      : [[], [], []];
 
-  if (cancelledRatio?.data) {
-    daysOfWeek.forEach((day) => {
-      const cncelled = cancelledRatio.data.filter(
-        (element) => element.DayName == day && element.isCancelled
-      );
-      const accepted = cancelledRatio.data.filter(
-        (element) => element.DayName == day && !element.isCancelled
-      );
-      cancelledRatioChartData.push({
-        date: day,
-        acceptances: accepted.length > 0 ? accepted[0].count : 0,
-        cancellations: cncelled.length > 0 ? cncelled[0].count : 0,
+    if (Reviews?.data) {
+      Reviews.data.forEach((element) => {
+        ReviewsChartData.push({
+          name: element.stars + " star",
+          users: element.Count,
+        });
       });
-    });
+    }
+    if (timePeriod?.data) {
+      timePeriod.data.forEach((element) => {
+        timePeriodChartData.push({
+          name: element.TimePeriod,
+          value: element.count,
+        });
+      });
+    }
+    console.log(timePeriodChartData);
+
+    if (cancelledRatio?.data) {
+      daysOfWeek.forEach((day) => {
+        const cncelled = cancelledRatio.data.filter(
+          (element) => element.DayName == day && element.isCancelled
+        );
+        const accepted = cancelledRatio.data.filter(
+          (element) => element.DayName == day && !element.isCancelled
+        );
+        cancelledRatioChartData.push({
+          date: day,
+          acceptances: accepted.length > 0 ? accepted[0].count : 0,
+          cancellations: cncelled.length > 0 ? cncelled[0].count : 0,
+        });
+      });
+    }
+    return {
+      timePeriodChartData,
+      ReviewsChartData,
+      cancelledRatioChartData,
+      COLORS,
+    };
   }
-  return {
-    timePeriodChartData,
-    ReviewsChartData,
-    cancelledRatioChartData,
-    COLORS,
-  };
 }

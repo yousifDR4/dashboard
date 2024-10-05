@@ -23,20 +23,29 @@ function Router({ children, queryClient }) {
           path: "/Dashboard",
           element: <Dashboard />,
           loader: async () => {
-            return (
-              queryClient.getQueryData(ChartQuery.queryKey) ??
-              (await queryClient.fetchQuery(ChartQuery))
-            );
+            try {
+              return (
+                queryClient.getQueryData(ChartQuery.queryKey) ??
+                (await queryClient.fetchQuery(ChartQuery))
+              );
+            } catch (error) {
+              return null;
+            }
           },
         },
         {
           path: "/",
           element: <Dashboard />,
           loader: async () => {
-            return (
-              queryClient.getQueryData(ChartQuery.queryKey) ??
-              (await queryClient.fetchQuery(ChartQuery))
-            );
+            try {
+              return (
+                queryClient.getQueryData(ChartQuery.queryKey) ??
+                (await queryClient.fetchQuery(ChartQuery))
+              );
+            } catch (error) {
+              console.log(error);
+              return null;
+            }
           },
         },
         {

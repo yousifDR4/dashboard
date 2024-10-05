@@ -47,7 +47,6 @@ function Accounts() {
           <table className="  table-auto  " ref={table}>
             <thead className="bg-[#FCFCFD] border-y-2 border-solid border-[#EAECF0]">
               <tr>
-                <th className="px-10 py-3"></th>
                 <th className="px-10 py-3"> </th>
                 <th className="px-10 py-3 flex ">
                   Account Type <img src="/down.svg" alt="" className=" pl-1" />
@@ -68,9 +67,9 @@ function Accounts() {
             <tbody className="text-center">
               <tr className="border-y-2 border-solid border-[#EAECF0]">
                 <td className="px-6 py-3">
-                  <input type="checkbox" id="1" />
+                  {" "}
+                  <input type="checkbox" id="1" />1
                 </td>
-                <td className="px-6 py-3">1</td>
                 <td className="px-6 py-3">Owner</td>
                 <td className="px-6 py-3">t@gmial.com</td>
                 <td className="px-6 py-3">yousif</td>
@@ -86,9 +85,9 @@ function Accounts() {
               </tr>
               <tr className="border-y-2 border-solid border-[#EAECF0]">
                 <td className="px-6 py-3">
-                  <input type="checkbox" name="2" id="2" />
+                  {" "}
+                  <input type="checkbox" name="2" id="2" /> 2
                 </td>
-                <td className="px-6 py-3">2</td>
                 <td className="px-6 py-3">supporter</td>
                 <td className="px-6 py-3">m@gmail.com</td>
                 <td className="px-6 py-3">mazin</td>
