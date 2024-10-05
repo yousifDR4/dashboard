@@ -2,7 +2,7 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  animation: moveDown 0.7s ease-in-out;
+  animation: moveDown 0.6s ease-in-out;
   animation-fill-mode: forwards;
 }
 @keyframes moveDown {

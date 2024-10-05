@@ -162,7 +162,13 @@ function Accounts() {
               ))}
             </tbody>
           </table>
-          <Form isOpen={open} toggleForm={toggleForm} />
+          <Form
+            isOpen={open}
+            toggleForm={toggleForm}
+            data={{
+              formType: "AddUser",
+            }}
+          />
         </div>
       </main>
       <BackDrop isOpen={open} toggleForm={toggleForm} />

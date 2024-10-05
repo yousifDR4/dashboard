@@ -1,0 +1,30 @@
+"filename", "language", "JavaScript", "CSS", "JavaScript JSX", "HTML", "JSON", "Markdown", "XML", "comment", "blank", "total"
+"c:\Users\ASUS\Desktop\Admin\front-end\README.md", "Markdown", 0, 0, 0, 0, 0, 5, 0, 0, 4, 9
+"c:\Users\ASUS\Desktop\Admin\front-end\eslint.config.js", "JavaScript", 37, 0, 0, 0, 0, 0, 0, 0, 2, 39
+"c:\Users\ASUS\Desktop\Admin\front-end\index.html", "HTML", 0, 0, 0, 31, 0, 0, 0, 0, 1, 32
+"c:\Users\ASUS\Desktop\Admin\front-end\package.json", "JSON", 0, 0, 0, 0, 41, 0, 0, 0, 1, 42
+"c:\Users\ASUS\Desktop\Admin\front-end\src\App.jsx", "JavaScript JSX", 0, 0, 24, 0, 0, 0, 0, 0, 6, 30
+"c:\Users\ASUS\Desktop\Admin\front-end\src\Router.jsx", "JavaScript JSX", 0, 0, 67, 0, 0, 0, 0, 0, 4, 71
+"c:\Users\ASUS\Desktop\Admin\front-end\src\assets\react.svg", "XML", 0, 0, 0, 0, 0, 0, 1, 0, 0, 1
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\Accounts.jsx", "JavaScript JSX", 0, 0, 164, 0, 0, 0, 0, 6, 10, 180
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\components\Adduser.jsx", "JavaScript JSX", 0, 0, 56, 0, 0, 0, 0, 0, 7, 63
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\components\BackDrop.jsx", "JavaScript JSX", 0, 0, 15, 0, 0, 0, 0, 0, 2, 17
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\components\Form.jsx", "JavaScript JSX", 0, 0, 17, 0, 0, 0, 0, 0, 2, 19
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\components\form.module.css", "CSS", 0, 17, 0, 0, 0, 0, 0, 0, 1, 18
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\accounts\hooks\useForm.jsx", "JavaScript JSX", 0, 0, 8, 0, 0, 0, 0, 0, 2, 10
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\dashboard\Dashboard.jsx", "JavaScript JSX", 0, 0, 160, 0, 0, 0, 0, 1, 4, 165
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\dashboard\hooks\useCharts.jsx", "JavaScript JSX", 0, 0, 64, 0, 0, 0, 0, 0, 6, 70
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\login\Login.jsx", "JavaScript JSX", 0, 0, 109, 0, 0, 0, 0, 0, 2, 111
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\login\services\login.js", "JavaScript", 6, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\navbar\NavBar.jsx", "JavaScript JSX", 0, 0, 70, 0, 0, 0, 0, 0, 4, 74
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\navbar\services\chartServices.js", "JavaScript", 12, 0, 0, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\ASUS\Desktop\Admin\front-end\src\features\register\Register.jsx", "JavaScript JSX", 0, 0, 5, 0, 0, 0, 0, 0, 3, 8
+"c:\Users\ASUS\Desktop\Admin\front-end\src\index.css", "CSS", 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"c:\Users\ASUS\Desktop\Admin\front-end\src\main.jsx", "JavaScript JSX", 0, 0, 9, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\ASUS\Desktop\Admin\front-end\src\store\messagesSlice.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 37, 1, 38
+"c:\Users\ASUS\Desktop\Admin\front-end\src\store\store.js", "JavaScript", 8, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\ASUS\Desktop\Admin\front-end\src\store\userSlice.js", "JavaScript", 19, 0, 0, 0, 0, 0, 0, 0, 1, 20
+"c:\Users\ASUS\Desktop\Admin\front-end\src\utils\api.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\ASUS\Desktop\Admin\front-end\src\utils\config.js", "JavaScript", 30, 0, 0, 0, 0, 0, 0, 0, 5, 35
+"c:\Users\ASUS\Desktop\Admin\front-end\src\utils\validateLogin.js", "JavaScript", 15, 0, 0, 0, 0, 0, 0, 0, 1, 16
+"Total", "-", 127, 20, 768, 31, 41, 5, 1, 44, 78, 1115
