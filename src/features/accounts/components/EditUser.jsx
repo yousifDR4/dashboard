@@ -4,47 +4,50 @@ import * as Yup from "yup";
 import { AddAccounts } from "../Services/Accounts";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function AddUser({ usersEmail }) {
+export default function EditUser({ userId, type }) {
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required")
-      .notOneOf(usersEmail, "User already exists"),
+    type: Yup.string()
+      .oneOf(["owner", "supporter"], "Invalid account type")
+      .required("Account type is required"),
   });
+  console.log(type);
+
   const queryClient = useQueryClient();
   const handleSubmit = async (values, { resetForm }) => {
-    await AddAccounts(3, values.email);
+    await AddAccounts(userId, values); 
     await queryClient.invalidateQueries(["table", "accounts"]);
-    resetForm();
+    resetForm(); 
   };
-
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md h-96">
-      <h2 className="text-2xl font-bold text-center mb-6">Add User</h2>
+      <h2 className="text-2xl font-bold text-center mb-6">Edit User</h2>
 
       <Formik
-        initialValues={{ email: "" }}
-        validationSchema={validationSchema}
+        initialValues={{ type: type.toLocaleLowerCase() }} // Set initial value to current account type
         onSubmit={handleSubmit}
+        validationSchema={validationSchema}
       >
         {({ isValid, dirty }) => (
           <Form className="space-y-8">
             <div className="form-group">
               <label
-                htmlFor="email"
+                htmlFor="type"
                 className="block text-sm font-medium text-gray-700"
               >
-                User Email:
+                User Account Type
               </label>
               <Field
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter user email"
+                as="select"
+                id="type"
+                name="type" // Let Formik handle the state
                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+              >
+                <option value="">Select user type</option>
+                <option value="owner">Owner</option>
+                <option value="supporter">Supporter</option>
+              </Field>
               <ErrorMessage
-                name="email"
+                name="type"
                 component="div"
                 className="text-red-500 text-sm mt-1"
               />
@@ -53,9 +56,9 @@ export default function AddUser({ usersEmail }) {
             <button
               disabled={!(isValid && dirty)}
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700  disabled:bg-gray-400 transition-colors"
+              className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 disabled:bg-gray-400 transition-colors"
             >
-              Add User
+              Edit User
             </button>
           </Form>
         )}

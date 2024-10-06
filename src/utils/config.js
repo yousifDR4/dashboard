@@ -27,8 +27,13 @@ class api {
     else return axios.put(`${this.apiUrl}${url}`, data);
   }
   get(url, headers = null) {
-    if (headers) return axios.get(`${this.apiUrl}${url}`, { headers: headers });
-    else return axios.get(`${this.apiUrl}${url}`);
+    try {
+      if (headers)
+        return axios.get(`${this.apiUrl}${url}`, { headers: headers });
+      else return axios.get(`${this.apiUrl}${url}`);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 export const apiInstance = new api();

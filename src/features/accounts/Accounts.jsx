@@ -4,13 +4,8 @@ import BackDrop from "./components/BackDrop";
 import Table from "./components/Table";
 import { getAllAccounts } from "./Services/Accounts";
 import { useQuery } from "@tanstack/react-query";
+import { ImageCrop } from "./components/ImageCrop";
 function Accounts() {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["table", "accounts"],
-    queryFn: () => getAllAccounts(3),
-    refetchOnWindowFocus: false,
-  });
-
   const [headers, setHeaders] = useState({
     "": {},
     "Account Type": {
@@ -29,6 +24,14 @@ function Accounts() {
     Name: "name",
   };
 
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["table", "accounts"],
+    queryFn: () => getAllAccounts(3),
+
+    refetchOnWindowFocus: false,
+  });
+  console.log(error);
+
   // Data array where each object represents a row
 
   const [sortedUsers, setSortedUsers] = useState([]);
@@ -39,8 +42,11 @@ function Accounts() {
     }
   }, [data]);
   const { open, toggleForm } = useForm();
+
+
   return (
     <div className="overflow-y-auto bg-white w-[86%] ">
+
       <main className="h-full pt-16 pb-16 flex justify-center">
         {isLoading ? (
           <div>Loading...</div>

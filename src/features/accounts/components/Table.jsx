@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Form from "./Form";
+import EditUser from "./EditUser";
 export default function Table({
   headers,
   keys,
@@ -44,6 +45,22 @@ export default function Table({
       [header]: { sorted: !isCurrentlySorted },
     }));
   };
+  const [data, setDate] = useState({});
+  function setAddUserData() {
+    setDate({
+      formType: "AddUser",
+      usersEmail: sortedUsers.map((user) => user.email),
+    });
+  }
+  function setEditUserData(type, userId) {
+    console.log(type, userId);
+
+    setDate({
+      formType: "EditUser",
+      userType: type,
+      userId: userId,
+    });
+  }
   return (
     <div className="overflow-x-auto bg-white rounded-2xl border-2 border-solid boreder-[#C8CBD9] shadow-lg px-5">
       <section
@@ -68,7 +85,10 @@ export default function Table({
             </div>
           </button>
           <button
-            onClick={toggleForm}
+            onClick={() => {
+              setAddUserData();
+              toggleForm();
+            }}
             className="bg-[#5A6ACF] flex-grow self-center flex justify-center items-center ml-24 text-white text-nowrap rounded-lg text-center w-44 px-4 pt-[px] h-12"
           >
             Add User to Restaurant
@@ -116,7 +136,15 @@ export default function Table({
               <td className="px-6 py-3">{user.name}</td>
               <td className="px-6 py-3 flex">
                 <button className="mr-10">
-                  <img src="edit.png" className="w-6 h-6" alt="Edit" />
+                  <img
+                    src="edit.png"
+                    className="w-6 h-6"
+                    alt="Edit"
+                    onClick={() => {
+                      setEditUserData(user.AccountType, user.id);
+                      toggleForm();
+                    }}
+                  />
                 </button>
                 <button>
                   <img src="delete.svg" className="w-6 h-6" alt="Delete" />
@@ -126,14 +154,7 @@ export default function Table({
           ))}
         </tbody>
       </table>
-      <Form
-        isOpen={open}
-        toggleForm={toggleForm}
-        data={{
-          formType: "AddUser",
-          usersEmail: sortedUsers.map((user) => user.email),
-        }}
-      />
+      <Form isOpen={open} toggleForm={toggleForm} data={data} />
     </div>
   );
 }
