@@ -6,6 +6,7 @@ import Login from "./features/login/Login";
 import NavBar from "./features/navbar/NavBar";
 import Accounts from "./features/accounts/Accounts";
 import { fetchChart } from "./features/navbar/services/chartServices";
+import ManageMenu from "./features/manageMenu/ManageMenu";
 export const ChartQuery = {
   queryKey: ["charts", 1],
   queryFn: () => fetchChart(3),
@@ -51,6 +52,10 @@ function Router({ children, queryClient }) {
         {
           path: "/Accounts",
           element: <Accounts />,
+        },
+        {
+          path: "/ManageMenu",
+          element: <ManageMenu />,
         },
       ],
     },

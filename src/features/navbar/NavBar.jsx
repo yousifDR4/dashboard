@@ -64,6 +64,29 @@ export default function NavBar() {
                 Accounts
               </li>
             </NavLink>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? activeStyle : notactiveStyle;
+              }}
+              to={"/ManageMenu"}
+            >
+              {(prob) => {
+                return (
+                  <li className="flex  ">
+                    {prob.isActive ? (
+                      <img
+                        src="/Activemanue.svg"
+                        className="mr-[10px]"
+                        alt=""
+                      />
+                    ) : (
+                      <img src="/managemenu.svg" className="mr-[10px]" alt="" />
+                    )}
+                    Manage Menu
+                  </li>
+                );
+              }}
+            </NavLink>
           </ul>
         </section>
       </nav>
