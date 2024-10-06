@@ -27,3 +27,17 @@ export const AddAccounts = async (restaurantId, email) => {
   );
   return response.data;
 };
+export const DeleteAccounts = async (restaurantId, userId) => {
+  try {
+    const response = await apiInstance.delete(
+      `Restaurant/${restaurantId}/accounts/${userId}`,
+      {
+        Authorization: `Bearer ${getToken()}`,
+      }
+    );
+    return response.data;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};

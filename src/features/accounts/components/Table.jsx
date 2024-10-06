@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import Form from "./Form";
 import EditUser from "./EditUser";
+import CheckboxForms from "./CheckboxForms";
 export default function Table({
   headers,
   keys,
@@ -10,6 +11,8 @@ export default function Table({
   toggleForm,
   open,
   setHeaders,
+  checkboxFormsIsOpen,
+  toggleCheckboxForms,
 }) {
   useLayoutEffect(() => {
     if (table.current.offsetWidth < 800) {
@@ -46,6 +49,9 @@ export default function Table({
     }));
   };
   const [data, setDate] = useState({});
+  const [checkboxFormsData, setCheckboxFormsData] = useState({});
+  console.log(checkboxFormsData);
+
   function setAddUserData() {
     setDate({
       formType: "AddUser",
@@ -72,13 +78,31 @@ export default function Table({
           <p>Display and Modify users who can Access the Admin Dashboard</p>
         </span>
         <div className="flex-shrink-0 content-center flex">
-          <button className="mr-10 mt-2 flex flex-grow items-center space-x-1 rounded-full">
+          <button
+            className="mr-10 mt-2 flex flex-grow items-center space-x-1 rounded-full"
+            onClick={() => {
+              if (Object.keys(checkboxFormsData).length > 0) {
+                toggleCheckboxForms();
+              }
+            }}
+          >
             <div className="items-center flex hover:bg-gray-200 rounded-full h-10 px-1">
               <span>edit</span>
               <img src="edit.png" className="cursor-pointer w-6 h-6" alt="" />
             </div>
           </button>
-          <button className="mt-2 flex flex-grow items-center space-x-1">
+          <button
+            className="mt-2 flex flex-grow items-center space-x-1"
+            onClick={() => {
+              const keys=Object.keys(checkboxFormsData);
+              if (Object.keys(checkboxFormsData).length > 0) {
+              for (let i = 0; i < keys.length; i++) {
+                // delete user
+
+              }
+              }
+            }}
+          >
             <div className="items-center flex hover:bg-gray-200 rounded-full h-10 px-1">
               <span>Delete</span>
               <img src="delete.svg" className="cursor-pointer w-6 h-6" alt="" />
@@ -129,7 +153,40 @@ export default function Table({
               className="border-y-2 border-solid border-[#EAECF0]"
             >
               <td className="px-6 py-3">
-                <input type="checkbox" id={user.id} /> {index + 1}
+                <input
+                  type="checkbox"
+                  id={user.id}
+                  onClick={(e) => {
+                    if (e.target.checked) {
+                      setCheckboxFormsData((prev) => {
+                        console.log({
+                          ...prev,
+                          [user.id]: {
+                            id: user.id,
+                            email: user.email,
+                            name: user.name,
+                            AccountType: user.AccountType,
+                          },
+                        });
+                        return {
+                          ...prev,
+                          [user.id]: {
+                            id: user.id,
+                            email: user.email,
+                            name: user.name,
+                            AccountType: user.AccountType,
+                          },
+                        };
+                      });
+                    } else {
+                      setCheckboxFormsData((prev) => {
+                        delete prev[user.id];
+                        return { ...prev };
+                      });
+                    }
+                  }}
+                />{" "}
+                {index + 1}
               </td>
               <td className="px-6 py-3">{user.AccountType}</td>
               <td className="px-6 py-3">{user.email}</td>
@@ -155,6 +212,7 @@ export default function Table({
         </tbody>
       </table>
       <Form isOpen={open} toggleForm={toggleForm} data={data} />
+      <CheckboxForms isOpen={checkboxFormsIsOpen} data={checkboxFormsData} />
     </div>
   );
 }

@@ -60,6 +60,7 @@ function Login() {
                     name="email"
                     id="email"
                     placeholder="Email@example.com"
+                    autoComplete="email"
                   />
                 </div>
                 <section className="flex justify-center">

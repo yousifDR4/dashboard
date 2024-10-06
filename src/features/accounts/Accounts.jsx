@@ -6,6 +6,7 @@ import { getAllAccounts } from "./Services/Accounts";
 import { useQuery } from "@tanstack/react-query";
 import { ImageCrop } from "./components/ImageCrop";
 function Accounts() {
+  const [checkboxFormsIsOpen, setCheckboxFormsIsOpen] = useState(false);
   const [headers, setHeaders] = useState({
     "": {},
     "Account Type": {
@@ -43,10 +44,11 @@ function Accounts() {
   }, [data]);
   const { open, toggleForm } = useForm();
 
-
+  const toggleCheckboxForms = () => {
+    setCheckboxFormsIsOpen(!checkboxFormsIsOpen);
+  };
   return (
     <div className="overflow-y-auto bg-white w-[86%] ">
-
       <main className="h-full pt-16 pb-16 flex justify-center">
         {isLoading ? (
           <div>Loading...</div>
@@ -60,10 +62,17 @@ function Accounts() {
             headers={headers}
             setHeaders={setHeaders}
             toggleForm={toggleForm}
+            toggleCheckboxForms={toggleCheckboxForms}
+            checkboxFormsIsOpen={checkboxFormsIsOpen}
           />
         )}
       </main>
-      <BackDrop isOpen={open} toggleForm={toggleForm} />
+      <BackDrop
+        isOpen={open}
+        checkboxFormsIsOpen={checkboxFormsIsOpen}
+        toggleForm={toggleForm}
+        toggleCheckboxForms={toggleCheckboxForms}
+      />
     </div>
   );
 }

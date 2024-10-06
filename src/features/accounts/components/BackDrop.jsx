@@ -1,11 +1,22 @@
 import React from "react";
 
-export default function BackDrop({ isOpen, toggleForm }) {
+export default function BackDrop({
+  isOpen,
+  toggleForm,
+  checkboxFormsIsOpen,
+  toggleCheckboxForms,
+}) {
+  const openBackdrop = isOpen || checkboxFormsIsOpen;
   return (
-    isOpen && (
+    openBackdrop && (
       <div
         onClick={() => {
-          toggleForm();
+          if (isOpen) {
+            toggleForm();
+          }
+          if (checkboxFormsIsOpen) {
+            toggleCheckboxForms();
+          }
         }}
         id="bluerRef"
         className="z-1 top-0 left-0  w-full h-screen fixed "
