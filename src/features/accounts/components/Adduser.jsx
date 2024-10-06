@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { AddAccounts } from "../Services/Accounts";
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-});
-
-export default function AddUser() {
-  const [addedUsers, setAddedUsers] = useState([]);
-
-  const handleSubmit = (values, { resetForm }) => {
-    setAddedUsers([...addedUsers, values.email]);
-    resetForm(); // Reset the form after submission
+export default function AddUser({ usersEmail }) {
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required")
+      .notOneOf(usersEmail, "User already exists"),
+  });
+  const handleSubmit = async (values, { resetForm }) => {
+    await AddAccounts(3, values.email);
+    resetForm(); 
   };
 
   return (
@@ -25,7 +24,7 @@ export default function AddUser() {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ isValid, dirty }) => (
           <Form className="space-y-8">
             <div className="form-group">
               <label
@@ -49,8 +48,9 @@ export default function AddUser() {
             </div>
 
             <button
+              disabled={!(isValid && dirty)}
               type="submit"
-              className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700  transition-colors"
+              className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700  disabled:bg-gray-400 transition-colors"
             >
               Add User
             </button>

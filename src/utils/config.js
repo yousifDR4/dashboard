@@ -27,7 +27,7 @@ class api {
     else return axios.put(`${this.apiUrl}${url}`, data);
   }
   get(url, headers = null) {
-    if (headers) return axios.put(`${this.apiUrl}${url}`, { headers: headers });
+    if (headers) return axios.get(`${this.apiUrl}${url}`, { headers: headers });
     else return axios.get(`${this.apiUrl}${url}`);
   }
 }

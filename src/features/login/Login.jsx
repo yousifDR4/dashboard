@@ -5,6 +5,7 @@ import validateLogin from "../../utils/validateLogin";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
+import { setToken } from "../../store/jwt";
 
 function Login() {
   const dispatchRedux = useDispatch();
@@ -12,8 +13,17 @@ function Login() {
   const handlelogin = (values) => {
     login(values)
       .then((response) => {
+        console.log(response);
+
         if (response.status === 200) {
-          dispatchRedux(setUser({ ...values, id: response.data.id }));
+          setToken(response.data.token);
+          dispatchRedux(
+            setUser({
+              ...values,
+              id: response.data.id,
+              token: response.data.token,
+            })
+          );
           navigate("/");
         }
       })
