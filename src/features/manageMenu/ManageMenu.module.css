@@ -1,0 +1,31 @@
+.tabs {
+  width: 500px;
+  --tab-width: 150px;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  position: relative;
+  isolation: isolate;
+}
+.tabs:has(.tab.active:nth-child(1)) {
+  --active: 0;
+}
+.tabs:has(.tab.active:nth-child(2)) {
+  --active: 1;
+}
+.tabs:has(.tab.active:nth-child(3)) {
+  --active: 2;
+}
+.tabs:has(.tab.active:nth-child(4)) {
+  --active: 3;
+}
+.tabs::after {
+  content: "";
+  background-color: blue;
+  position: absolute;
+  inset: 0;
+  --width: calc(100% / var(--count));
+  width: var(--width);
+  border-radius: inherit;
+  margin-left: calc(var(--active) * var(--width));
+  z-index: -1;
+}

@@ -1,6 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useLayoutEffect, useRef, useState } from "react";
 import Form from "./Form";
-import EditUser from "./EditUser";
 import CheckboxForms from "./CheckboxForms";
 export default function Table({
   headers,
@@ -14,6 +14,10 @@ export default function Table({
   checkboxFormsIsOpen,
   toggleCheckboxForms,
 }) {
+  const section = useRef(null);
+  const table = useRef(null);
+  const [data, setDate] = useState({});
+  const [checkboxFormsData, setCheckboxFormsData] = useState({});
   useLayoutEffect(() => {
     if (table.current.offsetWidth < 800) {
       if (table.current !== null) {
@@ -23,8 +27,7 @@ export default function Table({
     }
     window.addEventListener("resize", () => {});
   }, []);
-  const section = useRef(null);
-  const table = useRef(null);
+
   const handleSort = (header) => {
     if (header === "" || header === "Action") return; // Ignore checkbox and action columns
 
@@ -48,9 +51,6 @@ export default function Table({
       [header]: { sorted: !isCurrentlySorted },
     }));
   };
-  const [data, setDate] = useState({});
-  const [checkboxFormsData, setCheckboxFormsData] = useState({});
-  console.log(checkboxFormsData);
 
   function setAddUserData() {
     setDate({
@@ -94,12 +94,11 @@ export default function Table({
           <button
             className="mt-2 flex flex-grow items-center space-x-1"
             onClick={() => {
-              const keys=Object.keys(checkboxFormsData);
+              const keys = Object.keys(checkboxFormsData);
               if (Object.keys(checkboxFormsData).length > 0) {
-              for (let i = 0; i < keys.length; i++) {
-                // delete user
-
-              }
+                for (let i = 0; i < keys.length; i++) {
+                  // delete user
+                }
               }
             }}
           >

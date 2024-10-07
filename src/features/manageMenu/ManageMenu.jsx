@@ -1,45 +1,51 @@
 import { useState } from "react";
+import { TabsContainer, TabScroll } from "./styledcomponents";
+import Dishes from "./components/Dishes";
 
 function ManageMenu() {
-  const [category, setCategory] = useState("Hot Dishes");
+  const categoryArray = [
+    "Hot Dishes",
+    "Cold Dishes",
+    "Soup",
+    "Grill",
+    "Appetizer",
+    "Dessert",
+    "Beverage",
+  ];
+  const [category, setCategory] = useState(0);
   const changeCategory = (category) => {
     setCategory(category);
   };
+
   return (
-    <header className="w-[86%] flex flex-col px-6">
-      <div className="h-9">
-        <h1 className="mt-5">Jaegar Resto</h1>
+    <header className="w-[86%] flex flex-col overflow-hidden">
+      <div className="h-9 mt-4 pl-8  ">
+        <input
+          type="text"
+          placeholder="Search for a dish"
+          className="
+        h-8 w-96
+        outline-none border-none bg-[#F6F6FB]"
+        />
       </div>
-      <ul className="flex   mt-10">
-        <li
-          className="grid grid-cols-1 h-fit"
-          onClick={() => changeCategory("Hot Dishes")}
-        >
-          Hot Dishes
-          {category === "Hot Dishes" ? (
-            <hr style={{ border: "1px solid #8884d8" }} />
-          ) : (
-            <hr style={{ border: "1px solid #C8CBD9" }} />
-          )}
-        </li>
-        <div className="w-8 grid grid-cols-1 content-end">
-          <div></div>
-          <hr style={{ border: "1px solid #C8CBD9" }} />
-        </div>
-        <li
-          className="grid grid-cols-1 h-fit"
-          onClick={() => changeCategory("Soup")}
-        >
-          Soup
-          {category === "Soup" ? (
-            <hr style={{ border: "1px solid #8884d8" }} />
-          ) : (
-            <hr style={{ border: "1px solid #C8CBD9" }} />
-          )}
-        </li>
-      </ul>
+      {/* <hr style={{ marginTop: "12px", border: "1px solid #C8CBD9" }} /> */}
+      <TabScroll>
+        <TabsContainer $count={categoryArray.length} $active={category}>
+          {categoryArray.map((cat, index) => (
+            <button
+              className={`  ${
+                category === index ? "text-[#8884d8]" : "text-[#1F384C]"
+              }`}
+              key={cat}
+              onClick={() => changeCategory(index)}
+            >
+              {cat}
+            </button>
+          ))}
+        </TabsContainer>
+      </TabScroll>
+      <Dishes />
     </header>
   );
 }
-
 export default ManageMenu;

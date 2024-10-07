@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ImageCrop } from "./components/ImageCrop";
 function Accounts() {
   const [checkboxFormsIsOpen, setCheckboxFormsIsOpen] = useState(false);
+  const [sortedUsers, setSortedUsers] = useState([]);
+  const { open, toggleForm } = useForm();
   const [headers, setHeaders] = useState({
     "": {},
     "Account Type": {
@@ -35,14 +37,12 @@ function Accounts() {
 
   // Data array where each object represents a row
 
-  const [sortedUsers, setSortedUsers] = useState([]);
   useEffect(() => {
     console.log(data);
     if (data) {
       setSortedUsers(data);
     }
   }, [data]);
-  const { open, toggleForm } = useForm();
 
   const toggleCheckboxForms = () => {
     setCheckboxFormsIsOpen(!checkboxFormsIsOpen);
