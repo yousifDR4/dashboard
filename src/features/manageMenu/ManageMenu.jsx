@@ -1,22 +1,8 @@
-import { useState } from "react";
-import { TabsContainer, TabScroll } from "./styledcomponents";
+import { TabsContainer, TabScroll } from "../Management/styledcomponents";
 import Dishes from "./components/Dishes";
-
+import useDishes from "./hooks/useDishes";
 function ManageMenu() {
-  const categoryArray = [
-    "Hot Dishes",
-    "Cold Dishes",
-    "Soup",
-    "Grill",
-    "Appetizer",
-    "Dessert",
-    "Beverage",
-  ];
-  const [category, setCategory] = useState(0);
-  const changeCategory = (category) => {
-    setCategory(category);
-  };
-
+  const { category, categoryArray, changeCategory } = useDishes();
   return (
     <header className="w-[86%] flex flex-col overflow-hidden">
       <div className="h-9 mt-4 pl-8  ">

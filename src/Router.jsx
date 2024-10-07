@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./features/dashboard/Dashboard";
 import Register from "./features/register/Register";
@@ -7,6 +7,7 @@ import NavBar from "./features/navbar/NavBar";
 import Accounts from "./features/accounts/Accounts";
 import { fetchChart } from "./features/navbar/services/chartServices";
 import ManageMenu from "./features/manageMenu/ManageMenu";
+import Management from "./features/Management/Management";
 export const ChartQuery = {
   queryKey: ["charts", 1],
   queryFn: () => fetchChart(3),
@@ -30,7 +31,7 @@ function Router({ children, queryClient }) {
                 (await queryClient.fetchQuery(ChartQuery))
               );
             } catch (error) {
-              return null;
+              return error;
             }
           },
         },
@@ -54,8 +55,12 @@ function Router({ children, queryClient }) {
           element: <Accounts />,
         },
         {
-          path: "/ManageMenu",
+          path: "/Menu",
           element: <ManageMenu />,
+        },
+        {
+          path: "/Management",
+          element: <Management />,
         },
       ],
     },

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
@@ -68,7 +67,7 @@ export default function NavBar() {
               className={({ isActive }) => {
                 return isActive ? activeStyle : notactiveStyle;
               }}
-              to={"/ManageMenu"}
+              to={"/Menu"}
             >
               {(prob) => {
                 return (
@@ -82,7 +81,30 @@ export default function NavBar() {
                     ) : (
                       <img src="/managemenu.svg" className="mr-[10px]" alt="" />
                     )}
-                    Manage Menu
+                    Menu
+                  </li>
+                );
+              }}
+            </NavLink>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? activeStyle : notactiveStyle;
+              }}
+              to={"/Management"}
+            >
+              {(prob) => {
+                return (
+                  <li className="flex  ">
+                    {prob.isActive ? (
+                      <img
+                        src="/settingsactive.svg"
+                        className="mr-[10px]"
+                        alt=""
+                      />
+                    ) : (
+                      <img src="/settings.svg" className="mr-[10px]" alt="" />
+                    )}
+                    Management
                   </li>
                 );
               }}
