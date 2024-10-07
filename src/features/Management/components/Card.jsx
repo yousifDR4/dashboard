@@ -1,4 +1,9 @@
-export default function Card() {
+/* eslint-disable react/prop-types */
+export default function Card({
+  changeEditForm,
+  toggleEditForm,
+  food,
+}) {
   return (
     <div
       className="h-[299px] mt-8
@@ -17,6 +22,10 @@ export default function Card() {
       <p>seafood noodles</p>
       <p>$ 2.29</p>
       <button
+        onClick={() => {
+          changeEditForm(food);
+          toggleEditForm();
+        }}
         style={{
           borderEndStartRadius: "6px",
           borderEndEndRadius: "6px",

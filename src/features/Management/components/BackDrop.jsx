@@ -1,22 +1,17 @@
 /* eslint-disable react/prop-types */
 
-
 export default function BackDrop({
   isOpen,
-  toggleForm,
-  checkboxFormsIsOpen,
-  toggleCheckboxForms,
+  checkboxFormIsOpen,
+  toggleEditForm,
 }) {
-  const openBackdrop = isOpen || checkboxFormsIsOpen;
+  const openBackdrop = isOpen || checkboxFormIsOpen;
   return (
     openBackdrop && (
       <div
         onClick={() => {
           if (isOpen) {
-            toggleForm();
-          }
-          if (checkboxFormsIsOpen) {
-            toggleCheckboxForms();
+            toggleEditForm();
           }
         }}
         id="bluerRef"
