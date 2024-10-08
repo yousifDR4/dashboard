@@ -2,7 +2,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ImageCrop from "./ImageCrop";
+import { Addmenu } from "../services/menu";
 const init = {
   price: "",
   name: "",
@@ -14,9 +16,11 @@ const validationSchema = Yup.object({
   price: Yup.number("is number").required("price is required"),
   name: Yup.string("is string").required("price is required"),
 });
+
 export default function AddDishForm() {
   const queryClient = useQueryClient();
   const [imageUrl, setImageUrl] = useState(null);
+  const UplaoedImageFileRef = useRef(null);
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -24,37 +28,62 @@ export default function AddDishForm() {
       setImageUrl(url);
     }
   };
+  const uploadCroppedImage = async (croppedImageUrl) => {
+    if (!croppedImageUrl) return;
+    const base64Response = await fetch(croppedImageUrl);
+    const blob = await base64Response.blob();
+    UplaoedImageFileRef.current = blob;
+    console.log(blob);
+    console.log(UplaoedImageFileRef.current);
+    return blob;
+  };
 
   const handleSubmit = async (values, { resetForm }) => {
-    await queryClient.invalidateQueries(["table", "accounts"]);
+    console.log("submitting");
+
+    const formData = new FormData();
+    if (UplaoedImageFileRef.current) {
+      formData.append(
+        "ImageFile",
+        UplaoedImageFileRef.current,
+        "cropped-image.png"
+      );
+    }
+    formData.append("name", values.name);
+    formData.append("price", values.price);
+    formData.append("description", values.description);
+    formData.append("foodCategoryId", values.foodCategoryId);
+    try {
+      const res = await Addmenu(formData, 3);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
     resetForm();
   };
 
   return (
     <div className="w-full  ">
-      <div className="grid grid-cols-2">
+      <main className="grid grid-cols-2 gap-x-6">
         <div>
           <h2 className="text-2xl font-bold  mt-6 mb-6 pl-10">Add Dish</h2>
-          <Formik
-            initialValues={init}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
+          <Formik initialValues={init} onSubmit={handleSubmit}>
             {({ isValid, dirty }) => (
-              <Form className="pl-5">
+              <Form className="pl-5" encType="multipart/form-data">
                 <section className=" grid grid-cols-2 gap-x-10 gap-y-5">
                   <div>
                     <label
-                      htmlFor="email"
+                      htmlFor="name"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      User Email:
+                      Dish Name
                     </label>
                     <Field
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="Enter user email"
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Enter category name"
                       className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     <ErrorMessage
@@ -108,7 +137,7 @@ export default function AddDishForm() {
                       htmlFor="type"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      User Account Type
+                      category name
                     </label>
                     <Field
                       as="select"
@@ -117,8 +146,6 @@ export default function AddDishForm() {
                       className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
                       <option value="">Select dish category</option>
-                      <option value="owner">Owner</option>
-                      <option value="supporter">Supporter</option>
                     </Field>
                   </div>
                   <div>
@@ -127,7 +154,7 @@ export default function AddDishForm() {
                 </section>
                 <input type="file" onChange={handleImageUpload} />
                 <button
-                  disabled={!(isValid && dirty)}
+                  // disabled={!(isValid && dirty)}
                   type="submit"
                   className="mt-8 w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700  disabled:bg-gray-400 transition-colors"
                 >
@@ -137,7 +164,14 @@ export default function AddDishForm() {
             )}
           </Formik>
         </div>
-      </div>
+        <div>
+          {" "}
+          <ImageCrop
+            imageUrl={imageUrl}
+            uploadCroppedImage={uploadCroppedImage}
+          />
+        </div>
+      </main>
     </div>
   );
 }
