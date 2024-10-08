@@ -2,16 +2,20 @@
 
 export default function BackDrop({
   isOpen,
-  checkboxFormIsOpen,
   toggleEditForm,
+  isAddForm,
+  toggleAddForm,
 }) {
-  const openBackdrop = isOpen || checkboxFormIsOpen;
+  const openBackdrop = isOpen || isAddForm;
   return (
     openBackdrop && (
       <div
         onClick={() => {
           if (isOpen) {
             toggleEditForm();
+          }
+          if (isAddForm) {
+            toggleAddForm();
           }
         }}
         id="bluerRef"

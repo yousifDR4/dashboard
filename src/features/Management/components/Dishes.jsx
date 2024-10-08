@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useParams } from "react-router-dom";
 import AddDishCard from "./AddDishCard";
 import Card from "./Card";
 import Form from "./Form";
@@ -25,19 +26,14 @@ const foods = [
   "Grilled Cheese",
 ];
 
-function Dishes({ EditFormData, changeEditForm, isEditForm, toggleEditForm }) {
+function Dishes() {
+  let { id } = useParams();
+  id = id ? id : null;
+  console.log(id);
+
   const cardes = [];
   for (let i = 0; i < foods.length; i++) {
-    cardes.push(
-      <Card
-        EditFormData={EditFormData}
-        changeEditForm={changeEditForm}
-        isEditForm={isEditForm}
-        toggleEditForm={toggleEditForm}
-        key={i}
-        food={foods[i]}
-      />
-    );
+    cardes.push(<Card key={i} food={foods[i]} />);
   }
   return (
     <main className="pt-6 pl-10 pr-6 h-full overflow-y-auto mt-4">
@@ -49,7 +45,6 @@ function Dishes({ EditFormData, changeEditForm, isEditForm, toggleEditForm }) {
       >
         <AddDishCard />
         {cardes}
-        <Form isOpen={isEditForm} data={EditFormData} />
       </section>
     </main>
   );

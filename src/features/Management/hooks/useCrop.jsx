@@ -1,28 +1,16 @@
-/* eslint-disable react/prop-types */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ReactCrop, {
   centerCrop,
   convertToPixelCrop,
   makeAspectCrop,
 } from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
-import setCanvasPreview from "../../utils/setCanvasPreview";
-
-function Register({ UploadImageEvent }) {
-  const [imageUrl, setImageUrl] = useState(null);
+import setCanvasPreview from "../../../utils/setCanvasPreview";
+export default function useCrop(imageUrl) {
   const [crop, setCrop] = useState();
   const ImageRef = useRef(null);
   const CanvesRef = useRef(null);
   const aspectRatio = 1;
   const Min_dimension = 150;
-
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setImageUrl(url);
-    }
-  };
   const handleImageLoad = (e) => {
     const { width, height } = e.currentTarget;
     const temp = makeAspectCrop(
@@ -36,14 +24,8 @@ function Register({ UploadImageEvent }) {
     );
     setCrop(centerCrop(temp, width, height));
   };
-  useEffect(() => {
-    if (imageUrl) {
-      UploadImageEvent(UploadImageEvent);
-    }
-  }, [imageUrl]);
   return (
     <>
-      <input type="file" onChange={handleImageUpload} />
       {imageUrl && (
         <ReactCrop
           crop={crop} // pass the crop state here
@@ -97,4 +79,3 @@ function Register({ UploadImageEvent }) {
     </>
   );
 }
-export default Register;

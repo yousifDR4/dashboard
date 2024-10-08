@@ -1,12 +1,10 @@
 import { TabScroll, TabsContainer } from "./styledcomponents";
 import useMangementDishes from "./hooks/useMangementDishes";
-import Dishes from "./components/Dishes";
-import useEditForm from "./hooks/useEditForm";
-import BackDrop from "./components/BackDrop";
+
+import { useNavigate, Outlet } from "react-router-dom";
 const Management = () => {
   const { category, categoryArray, changeCategory } = useMangementDishes();
-  const { EditFormData, changeEditForm, isEditForm, toggleEditForm } =
-    useEditForm();
+  const navigate = useNavigate();
   return (
     <header className="w-[86%] flex flex-col overflow-hidden pt-8">
       <h1 className="font-semibold text-xl pl-8"> Dishes Settings </h1>
@@ -18,20 +16,17 @@ const Management = () => {
                 category === index ? "text-[#8884d8]" : "text-[#1F384C]"
               }`}
               key={cat}
-              onClick={() => changeCategory(index)}
+              onClick={() => {
+                changeCategory(index);
+                navigate(`/Management/${cat}`);
+              }}
             >
               {cat}
             </button>
           ))}
         </TabsContainer>
       </TabScroll>
-      <Dishes
-        EditFormData={EditFormData}
-        changeEditForm={changeEditForm}
-        isEditForm={isEditForm}
-        toggleEditForm={toggleEditForm}
-      />
-      <BackDrop isOpen={isEditForm} toggleEditForm={toggleEditForm} />
+      <Outlet />
     </header>
   );
 };
