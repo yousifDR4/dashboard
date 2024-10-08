@@ -6,7 +6,7 @@ const Management = () => {
   const { category, categoryArray, changeCategory } = useMangementDishes();
   const navigate = useNavigate();
   return (
-    <header className="w-[86%] flex flex-col overflow-hidden pt-8">
+    <header className="flex-1 flex flex-col overflow-hidden pt-8">
       <h1 className="font-semibold text-xl pl-8"> Dishes Settings </h1>
       <TabScroll>
         <TabsContainer $count={categoryArray.length} $active={category}>
