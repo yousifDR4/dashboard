@@ -1,10 +1,10 @@
 import styled from "styled-components";
 export const TabScroll = styled.div`
-  padding-left: 32px;
+  /* padding-left: 32px; */
   overflow-x: auto;
   overflow-y: hidden;
   height: fit-content;
-  padding-top: 4px;
+  /* padding-top: 4px; */
   padding-bottom: 4px;
   ::-webkit-scrollbar {
     width: 7px;
@@ -28,8 +28,8 @@ export const TabScroll = styled.div`
   }
 `;
 export const TabsContainer = styled.div`
-  margin-top: 12px;
-  margin-bottom: 12px;
+  /* margin-top: 12px; */
+  /* margin-bottom: 12px; */
   --count: ${(props) => props.$count || 0};
   --active: ${(props) => props.$active || 0};
   width: 700px;
@@ -37,7 +37,8 @@ export const TabsContainer = styled.div`
   display: grid;
   font-weight: 600;
 
-  height: 50px;
+  /* height: 50px; */
+  padding-bottom: 1rem;
   /* border-bottom: solid 1px #c8cbd9; */
   grid-template-columns: repeat(var(--count), minmax(0, 1fr));
   position: relative;

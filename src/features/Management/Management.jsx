@@ -6,8 +6,7 @@ const Management = () => {
   const { category, categoryArray, changeCategory } = useMangementDishes();
   const navigate = useNavigate();
   return (
-    <header className="flex-1 flex flex-col overflow-hidden pt-8">
-      <h1 className="font-semibold text-xl pl-8"> Dishes Settings </h1>
+      <div className=" flex flex-col">
       <TabScroll>
         <TabsContainer $count={categoryArray.length} $active={category}>
           {categoryArray.map((cat, index) => (
@@ -20,6 +19,7 @@ const Management = () => {
                 changeCategory(index);
                 navigate(`/Management/${cat}`);
               }}
+              
             >
               {cat}
             </button>
@@ -27,7 +27,7 @@ const Management = () => {
         </TabsContainer>
       </TabScroll>
       <Outlet />
-    </header>
+    </div>
   );
 };
 

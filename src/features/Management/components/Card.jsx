@@ -3,7 +3,7 @@ export default function Card({ changeEditForm, toggleEditForm, food }) {
   return (
     <div
       className="h-[299px] mt-8
-   w-[221px] bg-[#f7f5f1]  text-center  rounded-md shadow-md  cursor-pointer"
+   w-[100%] lg:w-[221px] bg-[#f7f5f1]  text-center  rounded-md shadow-md  cursor-pointer"
     >
       <div className="h-6"></div>
       <div className="flex justify-center">

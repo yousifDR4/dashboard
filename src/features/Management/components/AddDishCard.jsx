@@ -9,8 +9,8 @@ export default function AddDishCard({ changeAddForm, toggleAddForm }) {
           changeAddForm();
           toggleAddForm();
         }}
-        className="h-[299px] mt-8
-     w-[221px] bg-[#f7f5f1]  text-center 
+        className="h-[299px] mt-8 w-[100%]
+     lg:w-[221px] bg-[#f7f5f1]  text-center 
       rounded-md shadow-md  cursor-pointer 
       place-content-center 
       "

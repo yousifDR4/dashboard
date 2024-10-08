@@ -36,16 +36,17 @@ function Dishes() {
     cardes.push(<Card key={i} food={foods[i]} />);
   }
   return (
-    <main className="pt-6 pl-10 pr-6 h-full overflow-y-auto mt-4">
+    <main className="pt-6 h-full  ">
+      <div className="overflow-y-auto h-[75vh]">
       <h1 className="text-3xl font-semibold">Dishes</h1>
       <div className="h-6"></div>
       <section
-        className="w-full h-full  gap-y-6 grid gap-x-7"
-        style={{ gridTemplateColumns: "repeat(auto-fill, minmax(221px, 1fr))" }}
+        className="w-full px-4   gap-y-3 grid gap-x-4 grid-cols-[repeat(auto-fit,minmax(min(100%,26ch),1fr))] lg:grid-cols-[repeat(auto-fill,minmax(221px,1fr))]"
       >
         <AddDishCard />
         {cardes}
       </section>
+      </div>
     </main>
   );
 }
