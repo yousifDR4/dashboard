@@ -1,12 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
-export default function Card({
-  changeEditForm,
-  toggleEditForm,
-  food,
-  price,
-  name,
-  descibtion,
-}) {
+export default function Card({ food, price, name, descibtion }) {
+  const navgate = useNavigate();
   return (
     <div
       className="h-[299px] mt-8
@@ -30,8 +26,9 @@ export default function Card({
 
         <button
           onClick={() => {
-            changeEditForm(food);
-            toggleEditForm();
+            navgate(`/Management/ProductsManagment/EditDishForm`, {
+              state: { food },
+            });
           }}
           style={{
             borderEndStartRadius: "6px",

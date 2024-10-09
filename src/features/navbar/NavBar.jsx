@@ -39,84 +39,92 @@ export default function NavBar() {
             Menu
           </div>
           <ul className="list-none flex flex-col space-y-2 gap-5 md:gap-0 ">
-      
-              <li >
+            <li>
               <NavLink
-              className={(prob) => {
-                return prob.isActive || location.pathname == "/"
-                  ? activeStyle
-                  : notactiveStyle;
-              }}
-              to={"/Dashboard"}
-            >
+                className={(prob) => {
+                  return prob.isActive || location.pathname == "/"
+                    ? activeStyle
+                    : notactiveStyle;
+                }}
+                to={"/Dashboard"}
+              >
                 <img src="/dasborad.svg" className="md:mr-[10px]" alt="" />
                 <span className="flex-1 hidden md:block"> Dashboard </span>
-                </NavLink>
-              </li>
-            
-        
-              <li >
+              </NavLink>
+            </li>
+
+            <li>
               <NavLink
-              className={({ isActive }) => {
-                return isActive ? activeStyle : notactiveStyle;
-              }}
-              to={"/Accounts"}
-            >
+                className={({ isActive }) => {
+                  return isActive ? activeStyle : notactiveStyle;
+                }}
+                to={"/Accounts"}
+              >
                 <img src="/account.svg" className="md:mr-[10px]" alt="" />
                 <span className="flex-1 hidden md:block"> Accounts </span>
+              </NavLink>
+            </li>
 
-                </NavLink>
-              </li>
-        
-              <li>
+            <li>
               <NavLink
-                  className={({ isActive }) => {
-                    return isActive ? activeStyle : notactiveStyle;
-                  }}
-                  to={"/Menu"}
-                >
-              {(prob) => {
-                return (
-                  <>
-                    {prob.isActive ? (
-                      <img
-                        src="/Activemanue.svg"
-                        className="md:mr-[10px]"
-                        alt=""
-                      />
-                    ) : (
-                      <img src="/managemenu.svg" className="md:mr-[10px]" alt="" />
-                    )}
-                     <span className="flex-1 hidden md:block"> Menu </span>
+                className={({ isActive }) => {
+                  return isActive ? activeStyle : notactiveStyle;
+                }}
+                to={"/Menu"}
+              >
+                {(prob) => {
+                  return (
+                    <>
+                      {prob.isActive ? (
+                        <img
+                          src="/Activemanue.svg"
+                          className="md:mr-[10px]"
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          src="/managemenu.svg"
+                          className="md:mr-[10px]"
+                          alt=""
+                        />
+                      )}
+                      <span className="flex-1 hidden md:block"> Menu </span>
                     </>
-                );
-              }}
-                </NavLink>
-              </li>
-            <li >
-            <NavLink
-              className={({ isActive }) => {
-                return isActive ? activeStyle : notactiveStyle;
-              }}
-              to={"/Management"}
-            >
-              {(prob) => {
-                return (
-                  <>
-                    {prob.isActive ? (
-                      <img
-                        src="/settingsactive.svg"
-                        className="md:mr-[10px]"
-                        alt=""
-                      />
-                    ) : (
-                      <img src="/settings.svg" className="md:mr-[10px]" alt="" />
-                    )}
-                   <span className="flex-1 hidden md:block"> Management </span>
+                  );
+                }}
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive ? activeStyle : notactiveStyle;
+                }}
+                to={"/Management/ProductsManagment"}
+              >
+                {(prob) => {
+                  return (
+                    <>
+                      {prob.isActive ? (
+                        <img
+                          src="/settingsactive.svg"
+                          className="md:mr-[10px]"
+                          alt=""
+                        />
+                      ) : (
+                        <img
+                          src="/settings.svg"
+                          className="md:mr-[10px]"
+                          alt=""
+                        />
+                      )}
+                      <span className="flex-1 hidden md:block">
+                        {" "}
+                        Management{" "}
+                      </span>
                     </>
-                );
-              }}
-            </NavLink>
+                  );
+                }}
+              </NavLink>
             </li>
           </ul>
         </section>

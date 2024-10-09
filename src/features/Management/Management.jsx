@@ -1,6 +1,5 @@
 import { TabScroll, TabsContainer } from "./styledcomponents";
 import useMangementDishes from "./hooks/useMangementDishes";
-
 import { useNavigate, Outlet } from "react-router-dom";
 const Management = () => {
   const { category, categoryArray, changeCategory, dishes } =
@@ -27,9 +26,22 @@ const Management = () => {
             ))}
         </TabsContainer>
       </TabScroll>
-      <Outlet context={[dishes]} />
+      <Outlet
+        context={[
+          dishes,
+          categoryArray.map((cat) => {
+            console.log(cat);
+            if (cat !== "no category") {
+              return {
+                foodCategoryId: dishes[cat][0].foodCategoryId,
+                categoryName: dishes[cat][0].categoryName,
+              };
+            }
+            return null;
+          }),
+        ]}
+      />
     </div>
   );
 };
-
 export default Management;

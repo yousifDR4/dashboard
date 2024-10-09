@@ -36,7 +36,7 @@ export default function ImageCrop({ imageUrl, uploadCroppedImage }) {
     return (
       <>
         <h1 className="font-semibold text-2xl pl-9 pt-7">Edit image:</h1>
-        <div className="px-10">
+        <div className="px-10 flex justify-center">
           {imageUrl && (
             <ReactCrop
               crop={crop} // pass the crop state here
@@ -57,26 +57,27 @@ export default function ImageCrop({ imageUrl, uploadCroppedImage }) {
             </ReactCrop>
           )}
         </div>
-
-        <button
-          className="text-white font-medium text-lg rounded-3xl bg-[#5A6ACF] h-12 w-[300px]"
-          onClick={() => {
-            setCanvasPreview(
-              ImageRef.current,
-              CanvesRef.current,
-              convertToPixelCrop(
-                crop,
-                ImageRef.current.width,
-                ImageRef.current.height
-              )
-            );
-            const dataUrl = CanvesRef.current.toDataURL(); // this will give you the cropped image;
-            setCroppedImageUrl(dataUrl); // Store the cropped image URL
-            uploadCroppedImage(dataUrl);
-          }}
-        >
-          crop image
-        </button>
+        <div className="flex justify-center">
+          <button
+            className=" max-w[440px] w-[440px] mt-8 mb-6  bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700  disabled:bg-gray-400 transition-colors"
+            onClick={() => {
+              setCanvasPreview(
+                ImageRef.current,
+                CanvesRef.current,
+                convertToPixelCrop(
+                  crop,
+                  ImageRef.current.width,
+                  ImageRef.current.height
+                )
+              );
+              const dataUrl = CanvesRef.current.toDataURL(); // this will give you the cropped image;
+              setCroppedImageUrl(dataUrl); // Store the cropped image URL
+              uploadCroppedImage(dataUrl);
+            }}
+          >
+            crop image
+          </button>
+        </div>
         <div className="hidden">
           {crop && (
             <canvas
@@ -97,7 +98,7 @@ export default function ImageCrop({ imageUrl, uploadCroppedImage }) {
           <a
             href={croppedImageUrl}
             download="cropped-image.png" // Filename for the download
-            className="bg-blue-500 text-white px-4 py-2 mt-4 block text-center"
+            className="hidden bg-blue-500 text-white px-4 py-2 mt-4  text-center"
           >
             Download Cropped Image
           </a>

@@ -11,6 +11,7 @@ import Management from "./features/Management/Management";
 import AddDishForm from "./features/Management/components/AddDishForm";
 import Dishes from "./features/Management/components/Dishes";
 import Settings from "./features/settings/Settings";
+import EditDishForm from "./features/Management/components/EditDishForm";
 export const ChartQuery = {
   queryKey: ["charts", 1],
   queryFn: () => fetchChart(3),
@@ -64,28 +65,13 @@ function Router({ children, queryClient }) {
         {
           element: <Settings />,
           path: "/Management",
+          
+      
           children: [
-            {
-              path: "/Management",
-              element: <Management />,
-              children: [
-                {
-                  path: "/Management/:id",
-                  element: <Dishes />,
-                },
-                {
-                  path: "/Management/",
-                  element: <Dishes />,
-                },
-                {
-                  element: <AddDishForm />,
-                  path: "/Management/AddDishForm",
-                },
-              ],
-            },
             {
               path: "/Management/ProductsManagment",
               element: <Management />,
+
               children: [
                 {
                   path: "/Management/ProductsManagment/:id",
@@ -98,6 +84,10 @@ function Router({ children, queryClient }) {
                 {
                   element: <AddDishForm />,
                   path: "/Management/ProductsManagment/AddDishForm",
+                },
+                {
+                  element: <EditDishForm />,
+                  path: "/Management/ProductsManagment/EditDishForm",
                 },
               ],
             },

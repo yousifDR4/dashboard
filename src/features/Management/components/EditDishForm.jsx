@@ -5,7 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import ImageCrop from "./ImageCrop";
 import { Addmenu } from "../services/menu";
-import { useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 const init = {
   price: "",
   name: "",
@@ -18,7 +18,18 @@ const validationSchema = Yup.object({
   name: Yup.string("is string").required("price is required"),
 });
 
-export default function AddDishForm() {
+export default function EditDishForm() {
+  const { food } = useLocation().state;
+  console.log(food);
+
+  const init = {
+    price: food.price,
+    name: food.name,
+    description: food.description,
+    image: food.image,
+    category: food.foodCategoryId,
+  };
+  console.log(init);
   const queryClient = useQueryClient();
   const [, CategoryArray] = useOutletContext();
   const [imageUrl, setImageUrl] = useState(null);
@@ -42,7 +53,6 @@ export default function AddDishForm() {
 
   const handleSubmit = async (values, { resetForm }) => {
     console.log("submitting");
-
     const formData = new FormData();
     if (UplaoedImageFileRef.current) {
       formData.append(
@@ -57,7 +67,6 @@ export default function AddDishForm() {
     formData.append("foodCategoryId", values.foodCategoryId);
     try {
       const res = await Addmenu(formData, 3);
-      console.log(res);
       if (res.status === 200) {
         queryClient.invalidateQueries(["dishes", "category"]);
       }
@@ -68,10 +77,12 @@ export default function AddDishForm() {
     resetForm();
   };
   const options = [];
-  CategoryArray.forEach((cat) => {
+  CategoryArray.forEach((cat, id) => {
     if (cat === null) return;
     options.push(
-      <option value={cat.foodCategoryId}>{cat.categoryName}</option>
+      <option value={cat.foodCategoryId} key={id}>
+        {cat.categoryName}{" "}
+      </option>
     );
   });
   return (
