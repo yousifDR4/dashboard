@@ -1,5 +1,12 @@
 /* eslint-disable react/prop-types */
-export default function Card({ changeEditForm, toggleEditForm, food }) {
+export default function Card({
+  changeEditForm,
+  toggleEditForm,
+  food,
+  price,
+  name,
+  descibtion,
+}) {
   return (
     <div
       className="h-[299px] mt-8
@@ -14,23 +21,28 @@ export default function Card({ changeEditForm, toggleEditForm, food }) {
       </div>
 
       <div className="h-4"></div>
-      <p>Spicy seasoned</p>
-      <p>seafood noodles</p>
-      <p>$ 2.29</p>
-      <button
-        onClick={() => {
-          changeEditForm(food);
-          toggleEditForm();
-        }}
-        style={{
-          borderEndStartRadius: "6px",
-          borderEndEndRadius: "6px",
-        }}
-        className="mt-1 h-[52px] bg-[#C4C7DB]  flex w-full place-content-center items-center"
-      >
-        <img src="/editdish.svg" className="mr-1 z-10 mt-[1px] " alt="" />
-        Edit Dish
-      </button>
+      <div className="flex flex-col justify-between h-[126px]">
+        <div>
+          <p>{name}</p>
+          <p>{descibtion}</p>
+          <p>{price}$</p>
+        </div>
+
+        <button
+          onClick={() => {
+            changeEditForm(food);
+            toggleEditForm();
+          }}
+          style={{
+            borderEndStartRadius: "6px",
+            borderEndEndRadius: "6px",
+          }}
+          className=" h-[52px] bg-[#C4C7DB]  flex w-full place-content-center items-center "
+        >
+          <img src="/editdish.svg" className="mr-1 z-10 mt-[1px] " alt="" />
+          Edit Dish
+        </button>
+      </div>
     </div>
   );
 }

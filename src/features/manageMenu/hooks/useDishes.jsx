@@ -10,6 +10,7 @@ const categoryArray = [
   "Beverage",
 ];
 const UseDishes = () => {
+  
   const [category, setCategory] = useState(0);
   const changeCategory = (category) => {
     setCategory(category);

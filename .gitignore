@@ -10,7 +10,7 @@ node_modules/
 
 # Optional eslint cache
 .eslintcache
-
+.env
 # Optional REACT cache
 .cache
 .env.local
@@ -40,3 +40,4 @@ dist/
 
 # Windows specific
 Thumbs.db
+package-lock.json

@@ -62,30 +62,47 @@ function Router({ children, queryClient }) {
           element: <ManageMenu />,
         },
         {
-          element:<Settings/>,
-          path:"/Management",
-          children:[
-              {
-            path: "/Management",
-            element: <Management />,
-            children: [
-              {
-                path: "/Management/:id",
-                element: <Dishes />,
-              },
-              {
-                path: "/Management/",
-                element: <Dishes />,
-              },
-              {
-                element: <AddDishForm />,
-                path: "/Management/AddDishForm",
-              },
-            ],
-          },
-          ]
+          element: <Settings />,
+          path: "/Management",
+          children: [
+            {
+              path: "/Management",
+              element: <Management />,
+              children: [
+                {
+                  path: "/Management/:id",
+                  element: <Dishes />,
+                },
+                {
+                  path: "/Management/",
+                  element: <Dishes />,
+                },
+                {
+                  element: <AddDishForm />,
+                  path: "/Management/AddDishForm",
+                },
+              ],
+            },
+            {
+              path: "/Management/ProductsManagment",
+              element: <Management />,
+              children: [
+                {
+                  path: "/Management/ProductsManagment/:id",
+                  element: <Dishes />,
+                },
+                {
+                  path: "/Management/ProductsManagment",
+                  element: <Dishes />,
+                },
+                {
+                  element: <AddDishForm />,
+                  path: "/Management/ProductsManagment/AddDishForm",
+                },
+              ],
+            },
+          ],
         },
-        
       ],
     },
     {
