@@ -14,24 +14,86 @@ import {
   Line,
 } from "recharts";
 import useCharts from "./hooks/useCharts";
+import { useEffect, useState } from "react";
+import clesses from "./Dashboard.module.css";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const navgate = useNavigate();
   const {
     timePeriodChartData,
     ReviewsChartData,
     cancelledRatioChartData,
     COLORS,
   } = useCharts();
+  const toggleDropdown = () => {
+    setOpenDropdown(!openDropdown);
+  };
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      console.log(e.target);
+
+      console.log(e.target.id);
+
+      if (
+        setOpenDropdown &&
+        e.target.id !== "DropList" &&
+        e.target.id !== "button" &&
+        e.target.id !== "image"
+      ) {
+        setOpenDropdown(false);
+      }
+    });
+  }, []);
 
   return (
     <div
       className="overflow-y-auto"
       style={{
         backgroundColor: "white",
-        width: "85%",
+        width: "100%",
       }}
     >
-      <div className="h-16"></div>
+      <div className="h-16 flex items-center justify-end">
+        <div className=" pr-5 flex mr-3">
+          restaurant name
+          <button
+            className="ml-1 relative"
+            onClick={toggleDropdown}
+            id="button"
+          >
+            <img
+              src="/changeAccount.svg"
+              className="mt-[2px]"
+              alt=""
+              id="image"
+            />
+          </button>
+          <div className="relative">
+            {openDropdown && (
+              <div
+                className={`fixed w-36 top-12  right-8 border-2 border-solid border-[#C8CBD9]  bg-white shadow-md rounded-md z-10 ${clesses.dropdown}`}
+                id="DropList"
+              >
+                <div className={`grid grid-cols-1  `}>
+                  <div
+                    onClick={() => navgate("/Login")}
+                    className={`${clesses.div1} border-2 border-solid border-b-[#C8CBD9]`}
+                  >
+                    Logout
+                  </div>
+                  <div
+                    className={`${clesses.div2} border-2 border-solid border-b-[#C8CBD9]`}
+                  >
+                    Change restaurant
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
       <hr style={{ border: "1px solid #C8CBD9" }} />
       <p className="font-medium text-lg mb-10 mt-2 ml-10">Dashboard</p>
       <div
