@@ -17,9 +17,11 @@ import useCharts from "./hooks/useCharts";
 import { useEffect, useState } from "react";
 import clesses from "./Dashboard.module.css";
 import { useNavigate } from "react-router-dom";
+import UseResturants from "./hooks/useResturants";
 
 function Dashboard() {
   const [openDropdown, setOpenDropdown] = useState(false);
+  const {} = UseResturants();
   const navgate = useNavigate();
   const {
     timePeriodChartData,
