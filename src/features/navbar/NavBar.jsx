@@ -96,15 +96,19 @@ export default function NavBar() {
             </li>
             <li>
               <NavLink
-                className={({ isActive }) => {
-                  return isActive ? activeStyle : notactiveStyle;
+                className={(prop) => {
+              
+
+                  return prop.isActive || location.pathname === "/Management/Restaurant"
+                    ? activeStyle
+                    : notactiveStyle;
                 }}
                 to={"/Management/ProductsManagment"}
               >
                 {(prob) => {
                   return (
                     <>
-                      {prob.isActive ? (
+                      {prob.isActive || location.pathname === "/Management/Restaurant"? (
                         <img
                           src="/settingsactive.svg"
                           className="md:mr-[10px]"

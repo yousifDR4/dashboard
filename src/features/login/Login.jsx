@@ -35,9 +35,9 @@ function Login() {
     <main className="flex px-1 items-center place-content-center h-[100vh]">
       <div
         className="bg-white h-[70vh] rounded-3xl border-2 border-[#C8CBD9] shadow-sm flex-grow md:grow-[0.2]
-        md:py-10 md:px-14 py-5 px-3 "
+        md:py-10 md:px-14 py-5 px-3 w-[250px] "
       >
-        <div className="text-2xl font-bold text-center mb-12">Sign in</div>
+        <div className="text-2xl font-bold text-center mb-12 ">Sign in</div>
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values, actions) => {
@@ -47,7 +47,7 @@ function Login() {
         >
           {(form) => {
             return (
-              <Form className="flex flex-col w-full">
+              <Form className="flex flex-col w">
                 <section className="flex justify-center">
                   <label className="max-w-[528px] flex-1 mb-1" htmlFor="email">
                     Email or mobile phone number

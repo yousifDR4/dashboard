@@ -41,3 +41,4 @@ dist/
 # Windows specific
 Thumbs.db
 package-lock.json
+.VSCodeCounter
