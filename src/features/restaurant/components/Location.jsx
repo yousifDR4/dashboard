@@ -11,7 +11,7 @@ const center = {
   lng: -38.523,
 };
 
-function MyComponent() {
+function Location() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "YOUR_API_KEY",
@@ -45,4 +45,4 @@ function MyComponent() {
     <></>
   );
 }
-export default memo(MyComponent);
+export default memo(Location);

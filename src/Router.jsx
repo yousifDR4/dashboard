@@ -13,6 +13,9 @@ import Dishes from "./features/Management/components/Dishes";
 import Settings from "./features/settings/Settings";
 import EditDishForm from "./features/Management/components/EditDishForm";
 import Restaurant from "./features/restaurant/Restaurant";
+import EditResturantForm from "./features/restaurant/components/EditResturantForm";
+import DataForm from "./features/restaurant/components/DataForm";
+import LocationForm from "./features/restaurant/components/LocationForm";
 export const ChartQuery = {
   queryKey: ["charts", 1],
   queryFn: () => fetchChart(3),
@@ -71,6 +74,26 @@ function Router({ children, queryClient }) {
             {
               element: <Restaurant />,
               path: "/Management/Restaurant",
+              children: [
+                {
+                  path: "/Management/Restaurant",
+                  element: <EditResturantForm />,
+                  children: [
+                    {
+                      element: <DataForm />,
+                      path: "",
+                    },
+                    {
+                      element: <DataForm />,
+                      path: "/Management/Restaurant/DataForm",
+                    },
+                    {
+                      element: <LocationForm />,
+                      path: "/Management/Restaurant/LocationForm",
+                    },
+                  ],
+                },
+              ],
             },
             {
               path: "/Management/ProductsManagment",
