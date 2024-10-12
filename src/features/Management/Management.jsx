@@ -7,8 +7,6 @@ const Management = () => {
   const { category, categoryArray, changeCategory, dishes } =
     useMangementDishes(3);
   const location = useLocation();
-  console.log(location);
-
   const navigate = useNavigate();
   return (
     <div className=" flex flex-col">
@@ -33,7 +31,7 @@ const Management = () => {
           {categoryArray.length > 0 &&
             catgoryeName !== "" &&
             categoryArray.map((cat, index) => {
-              if (cat === catgoryeName&&index!==category) { 
+              if (cat === catgoryeName && index !== category) {
                 changeCategory(index);
               }
               return (
@@ -57,7 +55,6 @@ const Management = () => {
         context={[
           dishes,
           categoryArray.map((cat) => {
-            console.log(cat);
             if (cat !== "no category") {
               return {
                 foodCategoryId: dishes[cat][0].foodCategoryId,

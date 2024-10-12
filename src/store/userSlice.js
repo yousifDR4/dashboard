@@ -10,7 +10,7 @@ const userSlice=createSlice({
             state.user=action.payload;
             console.log(state);
         },
-        clearUser:(state,action)=>{
+        clearUser:()=>{
             return initialState;
         }
     }

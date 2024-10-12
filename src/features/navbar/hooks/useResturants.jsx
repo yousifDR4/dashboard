@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUserRestaurants } from "../service/Owners";
+import { getUserRestaurants } from "../../dashboard/service/Owners";
 const UseResturants = () => {
   const { data, error, isLoading } = useQuery({
-    queryKey: ["countryName", "country"],
+    queryKey: ["Resturants", "Resturants"],
     queryFn: () => getUserRestaurants(),
     staleTime: 1000 * 60,
   });
-  {
-    data, error, isLoading;
-  }
+  return {
+    data,
+    error,
+    isLoading,
+  };
 };
 
 export default UseResturants;

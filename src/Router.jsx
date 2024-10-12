@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./features/dashboard/Dashboard";
 import Register from "./features/register/Register";
 import Login from "./features/login/Login";
-import NavBar from "./features/navbar/NavBar";
+
 import Accounts from "./features/accounts/Accounts";
 import { fetchChart } from "./features/navbar/services/chartServices";
 import ManageMenu from "./features/manageMenu/ManageMenu";
@@ -16,6 +16,8 @@ import Restaurant from "./features/restaurant/Restaurant";
 import EditResturantForm from "./features/restaurant/components/EditResturantForm";
 import DataForm from "./features/restaurant/components/DataForm";
 import LocationForm from "./features/restaurant/components/LocationForm";
+import Index from "./Index";
+import SelectRestaurant from "./features/selecetRestaurnt/SelectRestaurant";
 export const ChartQuery = {
   queryKey: ["charts", 1],
   queryFn: () => fetchChart(3),
@@ -27,7 +29,7 @@ function Router({ children, queryClient }) {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <NavBar />,
+      element: <Index />,
       children: [
         {
           path: "/Dashboard",
@@ -129,6 +131,10 @@ function Router({ children, queryClient }) {
     {
       path: "/login",
       element: <Login />,
+    },
+    {
+      path: "/SelectRestaurant",
+      element: <SelectRestaurant />,
     },
   ]);
 
