@@ -17,25 +17,32 @@ import useCharts from "./hooks/useCharts";
 import { useEffect, useState } from "react";
 import clesses from "./Dashboard.module.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import SelectRestaurant from "./../selecetRestaurnt/SelectRestaurant";
+import { setResturants, setSelected } from "../../store/restaurantsSlice";
+import { clearUser } from "../../store/userSlice";
+import { removeToken } from "../../store/jwt";
+import { removeRestaurantId } from "../../utils/selectedResturant";
 function Dashboard() {
+  const navgate = useNavigate();
+  const dispatchRedux = useDispatch();
   const [openDropdown, setOpenDropdown] = useState(false);
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
 
   const {
     timePeriodChartData,
     ReviewsChartData,
     cancelledRatioChartData,
     COLORS,
-  } = useCharts();
+  } = useCharts(restaurants[selectedRestaurant]?.id);
   const toggleDropdown = () => {
     setOpenDropdown(!openDropdown);
   };
   useEffect(() => {
     window.addEventListener("click", (e) => {
       console.log(e.target);
-
       console.log(e.target.id);
-
       if (
         setOpenDropdown &&
         e.target.id !== "DropList" &&
@@ -57,7 +64,11 @@ function Dashboard() {
     >
       <div className="h-16 flex items-center justify-end">
         <div className=" pr-5 flex mr-3">
-          restaurant name
+          {restaurants[selectedRestaurant]?.name ? (
+            restaurants[selectedRestaurant].name
+          ) : (
+            <div>loading</div>
+          )}
           <button
             className="ml-1 relative"
             onClick={toggleDropdown}
@@ -76,15 +87,26 @@ function Dashboard() {
                 className={`fixed w-36 top-12  right-8 border-2 border-solid border-[#C8CBD9]  bg-white shadow-md rounded-md z-10 ${clesses.dropdown}`}
                 id="DropList"
               >
-                <div className={`grid grid-cols-1  `}>
+                <div className={`grid grid-cols-1 px-1 gap-y-1 mt-2`}>
                   <div
-                    onClick={() => navgate("/Login")}
-                    className={`${clesses.div1} border-2 border-solid border-b-[#C8CBD9]`}
+                    onClick={() => {
+                      dispatchRedux(setSelected(null));
+                      dispatchRedux(setResturants([]));
+                      dispatchRedux(clearUser());
+                      removeToken();
+                      removeRestaurantId();
+
+                      navgate("/Login");
+                    }}
+                    className={`${clesses.div1} `}
                   >
                     Logout
                   </div>
                   <div
-                    className={`${clesses.div2} border-2 border-solid border-b-[#C8CBD9]`}
+                    className={`${clesses.div2} `}
+                    onClick={() => {
+                      navgate("/SelectRestaurant");
+                    }}
                   >
                     Change restaurant
                   </div>

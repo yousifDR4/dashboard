@@ -4,8 +4,12 @@ import BackDrop from "./components/BackDrop";
 import Table from "./components/Table";
 import { getAllAccounts } from "./Services/Accounts";
 import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 function Accounts() {
   const [checkboxFormsIsOpen, setCheckboxFormsIsOpen] = useState(false);
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const restaurantsId = restaurants[selectedRestaurant]?.id;
   const [sortedUsers, setSortedUsers] = useState([]);
   const { open, toggleForm } = useForm();
   const [headers, setHeaders] = useState({
@@ -28,7 +32,7 @@ function Accounts() {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ["table", "accounts"],
-    queryFn: () => getAllAccounts(3),
+    queryFn: () => getAllAccounts(restaurantsId),
 
     refetchOnWindowFocus: false,
   });

@@ -6,7 +6,7 @@ const useMangementDishes = (restarantId) => {
   const [categoryArray, setCategoryArray] = useState([]);
   const [dishes, setDishes] = useState({});
   const { data, error, isLoading } = useQuery({
-    queryKey: ["dishes", "category"],
+    queryKey: ["dishes", restarantId],
     queryFn: () => getMenu(restarantId),
     staleTime: 1000 * 60,
   });

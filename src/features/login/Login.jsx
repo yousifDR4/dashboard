@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import login from "./services/login";
 import validateLogin from "../../utils/validateLogin";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
-import { setToken } from "../../store/jwt";
+import { getToken, setToken } from "../../store/jwt";
 
 function Login() {
   const dispatchRedux = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (getToken() !== null) {
+      navigate("/");
+    }
+  }, []);
   const handlelogin = (values) => {
     login(values)
       .then((response) => {

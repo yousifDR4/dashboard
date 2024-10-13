@@ -1,6 +1,7 @@
 import { apiInstance } from "../../../utils/config";
 
 const fetchChart = async (restaurantId) => {
+  if (!restaurantId) return null;
   const data1 = apiInstance.get(
     `/Reservation/count/timePeriod/${restaurantId}`
   );

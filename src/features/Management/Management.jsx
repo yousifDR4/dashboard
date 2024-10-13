@@ -1,11 +1,16 @@
 import { TabScroll, TabsContainer } from "./styledcomponents";
 import useMangementDishes from "./hooks/useMangementDishes";
 import { useNavigate, Outlet, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Management = () => {
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const restaurantsId = restaurants[selectedRestaurant]?.id;
   const { id } = useParams();
   let catgoryeName = id ? id : "";
+  console.log(restaurantsId);
   const { category, categoryArray, changeCategory, dishes } =
-    useMangementDishes(3);
+    useMangementDishes(restaurantsId);
   const location = useLocation();
   const navigate = useNavigate();
   return (

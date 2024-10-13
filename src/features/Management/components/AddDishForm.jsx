@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import ImageCrop from "./ImageCrop";
 import { Addmenu } from "../services/menu";
 import { useOutletContext } from "react-router-dom";
+import { useSelector } from "react-redux";
 const init = {
   price: "",
   name: "",
@@ -23,6 +24,9 @@ export default function AddDishForm() {
   const [, CategoryArray] = useOutletContext();
   const [imageUrl, setImageUrl] = useState(null);
   const UplaoedImageFileRef = useRef(null);
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const restaurantsId = restaurants[selectedRestaurant]?.id;
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -56,7 +60,7 @@ export default function AddDishForm() {
     formData.append("description", values.description);
     formData.append("foodCategoryId", values.foodCategoryId);
     try {
-      const res = await Addmenu(formData, 3);
+      const res = await Addmenu(formData, restaurantsId);
       console.log(res);
       if (res.status === 200) {
         queryClient.invalidateQueries(["dishes", "category"]);

@@ -12,16 +12,14 @@ const daysOfWeek = [
   "Friday",
   "Saturday",
 ];
-export default function useCharts() {
+export default function useCharts(id) {
   const timePeriodChartData = [];
   const ReviewsChartData = [];
   const cancelledRatioChartData = [];
 
   const load = useLoaderData();
-  const q = useQuery(ChartQuery);
+  const q = useQuery(ChartQuery(id));
   if (q) {
-    console.log(q);
-
     const [timePeriod, cancelledRatio, Reviews] = q.data
       ? q.data
       : [[], [], []];
@@ -42,7 +40,6 @@ export default function useCharts() {
         });
       });
     }
-    console.log(timePeriodChartData);
 
     if (cancelledRatio?.data) {
       daysOfWeek.forEach((day) => {

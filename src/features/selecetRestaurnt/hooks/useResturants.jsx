@@ -5,7 +5,10 @@ const UseResturants = () => {
     queryKey: ["Resturants", "Resturants"],
     queryFn: () => getUserRestaurants(),
     staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
+ 
   });
+
   return {
     data,
     error,

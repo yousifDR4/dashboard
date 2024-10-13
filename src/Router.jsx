@@ -18,14 +18,22 @@ import DataForm from "./features/restaurant/components/DataForm";
 import LocationForm from "./features/restaurant/components/LocationForm";
 import Index from "./Index";
 import SelectRestaurant from "./features/selecetRestaurnt/SelectRestaurant";
-export const ChartQuery = {
-  queryKey: ["charts", 1],
-  queryFn: () => fetchChart(3),
+import { useSelector } from "react-redux";
+export const ChartQuery = (id) => ({
+  queryKey: ["charts", id],
+  queryFn: () => fetchChart(id),
   refetchOnWindowFocus: false,
   staleTime: 1000 * 60 * 60,
-};
+});
 
 function Router({ children, queryClient }) {
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const restaurantsId = restaurants
+    ? restaurants[selectedRestaurant]?.id
+    : null;
+  console.log(restaurantsId);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -37,8 +45,8 @@ function Router({ children, queryClient }) {
           loader: async () => {
             try {
               return (
-                queryClient.getQueryData(ChartQuery.queryKey) ??
-                (await queryClient.fetchQuery(ChartQuery))
+                queryClient.getQueryData(ChartQuery(restaurantsId).queryKey) ??
+                (await queryClient.fetchQuery(ChartQuery(restaurantsId)))
               );
             } catch (error) {
               return error;
@@ -48,17 +56,6 @@ function Router({ children, queryClient }) {
         {
           path: "/",
           element: <Dashboard />,
-          loader: async () => {
-            try {
-              return (
-                queryClient.getQueryData(ChartQuery.queryKey) ??
-                (await queryClient.fetchQuery(ChartQuery))
-              );
-            } catch (error) {
-              console.log(error);
-              return null;
-            }
-          },
         },
         {
           path: "/Accounts",

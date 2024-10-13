@@ -3,8 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { AddAccounts } from "../Services/Accounts";
 import { useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
 
 export default function AddUser({ usersEmail }) {
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const restaurantsId = restaurants[selectedRestaurant]?.id;
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
@@ -13,7 +17,7 @@ export default function AddUser({ usersEmail }) {
   });
   const queryClient = useQueryClient();
   const handleSubmit = async (values, { resetForm }) => {
-    await AddAccounts(3, values.email);
+    await AddAccounts(restaurantsId, values.email);
     await queryClient.invalidateQueries(["table", "accounts"]);
     resetForm();
   };

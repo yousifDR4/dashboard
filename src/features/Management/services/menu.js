@@ -25,5 +25,8 @@ export const fetchFile = async (restaurantId, ImageName) => {
   }
 };
 export const getMenu = async (restaurantId) => {
+  if (!restaurantId) {
+    return null;
+  }
   return (await apiInstance.get(`/Menu/resturant/${restaurantId}`)).data;
 };

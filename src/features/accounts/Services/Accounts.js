@@ -1,6 +1,7 @@
 import { getToken } from "../../../store/jwt";
 import { apiInstance } from "./../../../utils/config";
 export const getAllAccounts = async (restaurantId) => {
+  if (!restaurantId) return null;
   try {
     const response = await apiInstance.get(
       `/Restaurant/accounts/${restaurantId}`,

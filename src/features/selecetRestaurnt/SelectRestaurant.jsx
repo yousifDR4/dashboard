@@ -23,15 +23,20 @@ function SelectRestaurant() {
     if (data) {
       console.log(data);
 
-      dispatchRedux(setResturants(data));
+      dispatchRedux(setResturants(data.data));
     }
   }, [data]);
 
   const selectRestaurnat = (index) => {
-    setRestaurantId(data[index].id);
-    dispatchRedux(setSelected(data[index].id));
+    setRestaurantId(data.data[index].id);
+
+    dispatchRedux(setSelected(index));
     navgate("/");
   };
+  console.log(data);
+  if (data?.status === 401) {
+    navgate("/login");
+  }
 
   return (
     <section className="flex  items-center place-content-center h-[100vh] ">
@@ -39,13 +44,16 @@ function SelectRestaurant() {
         <h1 className="text-2xl font-semibold text-center">
           Select Restaurant
         </h1>
+
+        {error && <p>{error.message}</p>}
         {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {data &&
-          data.map((restaurant, index) => (
+        {!isLoading &&
+          !error &&
+          data?.data !== null &&
+          data?.data?.map((restaurant, index) => (
             <div
               key={index}
-              className={`mt-5 flex space-x-5 hover:bg-[#E4E7F5] ${
+              className={`min-w-[230px] mt-5 flex space-x-5 hover:bg-[#E4E7F5] ${
                 selectedRestaurantIdFromStorag
                   ? +selectedRestaurantIdFromStorag === restaurant.id
                     ? "bg-[#E4E7F5]"
@@ -72,5 +80,4 @@ function SelectRestaurant() {
     </section>
   );
 }
-
 export default SelectRestaurant;
