@@ -22,7 +22,7 @@ const EditResturantForm = () => {
     isLoading: citiesLoading,
     error: CitiesError,
     data: cities,
-  } = useCities("iraq");
+  } = useCities(country);
   const {
     data: countries,
     error: countriesError,
@@ -107,7 +107,7 @@ const EditResturantForm = () => {
             validationSchema={validationSchema}
           >
             {({ isValid, dirty, setFieldValue, values, isSubmitting }) =>
-              citiesLoading || countriesLoading ? (
+                countriesLoading ? (
                 <div>loading</div>
               ) : (
                 <Outlet
@@ -120,6 +120,7 @@ const EditResturantForm = () => {
                     countries,
                     cities,
                     isSubmitting,
+                    citiesLoading,
                   ]}
                 />
               )

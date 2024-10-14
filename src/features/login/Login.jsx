@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { getToken, setToken } from "../../store/jwt";
 import { useQueryClient } from "@tanstack/react-query";
+import UseResturants from "../selecetRestaurnt/hooks/useResturants";
+import { getUserRestaurants } from "../dashboard/service/Owners";
 
 function Login() {
   const dispatchRedux = useDispatch();
@@ -17,7 +19,7 @@ function Login() {
       navigate("/");
     }
   }, []);
-  const handlelogin = (values) => {
+  const handlelogin = async (values) => {
     login(values)
       .then((response) => {
         console.log(response);
@@ -32,12 +34,13 @@ function Login() {
               token: response.data.token,
             })
           );
-          QueryClient.invalidateQueries(["Resturants", "Resturants"]).then(
-            () => {
-              console.log("invalidateQueries");
-              navigate("/");
-            }
-          );
+          QueryClient.refetchQueries(["Resturants", "Resturants"])
+            .then(() => {
+              navigate("/Dashboard");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         }
       })
       .catch((error) => {

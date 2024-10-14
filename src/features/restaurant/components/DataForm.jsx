@@ -12,6 +12,7 @@ const DataForm = () => {
     countries,
     cities,
     isSubmitting,
+    citiesLoading,
   ] = useOutletContext();
 
   return (
@@ -48,7 +49,7 @@ const DataForm = () => {
             onChange={(e) => {
               console.log(e.target.value);
               console.log(values);
-              
+
               setCountry(e.target.value);
               setFieldValue("country", e.target.value);
             }}
@@ -81,7 +82,11 @@ const DataForm = () => {
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">select</option>
-            <LoadOptions data={cities} />
+            {citiesLoading ? (
+              <option>Loading...</option>
+            ) : (
+              <LoadOptions data={cities} />
+            )}
           </Field>
           <ErrorMessage
             name="city"
