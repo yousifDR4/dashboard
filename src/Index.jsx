@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import UseResturants from "./features/navbar/hooks/useResturants";
 import NavBar from "./features/navbar/NavBar";
-import { Outlet, useNavigate } from "react-router-dom"; 
+import { Outlet, useNavigate } from "react-router-dom";
 import { setResturants, setSelected } from "./store/restaurantsSlice";
 import { useEffect } from "react";
 import { getRestaurantId } from "./utils/selectedResturant";
@@ -17,7 +17,7 @@ const Index = () => {
       return;
     }
     let id = 0;
-   
+
     if (data) {
       const LocalRestaurantId = getRestaurantId();
       if (LocalRestaurantId === null) {
@@ -39,7 +39,7 @@ const Index = () => {
   }, [data]);
   return (
     <main className="flex h-full  ">
-      {!isLoading && (
+      {!isLoading && getRestaurantId() !== null && (
         <>
           <NavBar />
           <Outlet />

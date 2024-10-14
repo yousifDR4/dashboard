@@ -18,6 +18,7 @@ import LocationForm from "./features/restaurant/components/LocationForm";
 import Index from "./Index";
 import SelectRestaurant from "./features/selecetRestaurnt/SelectRestaurant";
 import { useSelector } from "react-redux";
+import Reservations from "./features/Reservations/Reservations";
 export const ChartQuery = (id) => ({
   queryKey: ["charts", id],
   queryFn: () => fetchChart(id),
@@ -35,7 +36,7 @@ function Router({ children, queryClient }) {
     {
       path: "/",
       element: <Index />,
-      
+
       children: [
         {
           path: "/Dashboard",
@@ -116,6 +117,10 @@ function Router({ children, queryClient }) {
               ],
             },
           ],
+        },
+        {
+          path: "/Reservations",
+          element: <Reservations />,
         },
       ],
     },

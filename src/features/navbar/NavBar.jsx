@@ -124,6 +124,40 @@ export default function NavBar() {
               }}
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              className={(prop) => {
+                return prop.isActive || location.pathname === "/Reservations"
+                  ? activeStyle
+                  : notactiveStyle;
+              }}
+              to={"/Reservations"}
+            >
+              {(prob) => {
+                return (
+                  <>
+                    {prob.isActive ? (
+                      <img
+                        src="/activeFood.svg"
+                        className="md:mr-[10px]"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src="/foodorder.svg"
+                        className="md:mr-[10px]"
+                        alt=""
+                      />
+                    )}
+                    <span className="flex-1 hidden md:block">
+                      {" "}
+                      Reservations{" "}
+                    </span>
+                  </>
+                );
+              }}
+            </NavLink>
+          </li>
         </ul>
       </section>
     </nav>

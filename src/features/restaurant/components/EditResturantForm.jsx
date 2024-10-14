@@ -65,7 +65,7 @@ const EditResturantForm = () => {
   return (
     <div>
       <TabScroll>
-        <TabsContainer $count={8} $active={currentForm}>
+        <TabsContainer $count={6} $active={currentForm}>
           <button
             className={`  ${
               currentForm === "DataForm" ? "text-[#8884d8]" : "text-[#1F384C]"
@@ -88,7 +88,7 @@ const EditResturantForm = () => {
               navgate("LocationForm");
             }}
           >
-            Data Form
+            Location Form
           </button>
         </TabsContainer>
       </TabScroll>
@@ -107,7 +107,7 @@ const EditResturantForm = () => {
             validationSchema={validationSchema}
           >
             {({ isValid, dirty, setFieldValue, values, isSubmitting }) =>
-                countriesLoading ? (
+              countriesLoading ? (
                 <div>loading</div>
               ) : (
                 <Outlet

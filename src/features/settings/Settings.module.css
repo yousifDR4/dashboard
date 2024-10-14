@@ -1,0 +1,33 @@
+.dropdown {
+  animation: moveDown 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes moveDown {
+  from {
+    height: 0px;
+  }
+  to {
+    height: 112px;
+  }
+}
+.div1 {
+  cursor: pointer;
+  font-size: 16px;
+  transform: opacity(0);
+  animation: list1 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+.div2 {
+  font-size: 16px;
+  cursor: pointer;
+  animation: list1 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes list1 {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

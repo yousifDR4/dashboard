@@ -10,6 +10,8 @@ function Accounts() {
   const selectedRestaurant = useSelector((state) => state.restaurants.selected);
   const restaurants = useSelector((state) => state.restaurants.restaurants);
   const restaurantsId = restaurants[selectedRestaurant]?.id;
+  console.log(restaurantsId);
+
   const [sortedUsers, setSortedUsers] = useState([]);
   const { open, toggleForm } = useForm();
   const [headers, setHeaders] = useState({
@@ -33,7 +35,8 @@ function Accounts() {
   const { data, error, isLoading } = useQuery({
     queryKey: ["table", "accounts"],
     queryFn: () => getAllAccounts(restaurantsId),
-
+    staleTime: 1000 * 60,
+    enabled: !!restaurantsId,
     refetchOnWindowFocus: false,
   });
   console.log(error);
@@ -52,7 +55,7 @@ function Accounts() {
   };
   return (
     <div className="overflow-y-auto bg-white w-[86%] ">
-      <main className="h-full pt-16 pb-16 flex justify-center">
+      <section className="h-full pt-16 pb-16 flex justify-center">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
@@ -69,7 +72,7 @@ function Accounts() {
             checkboxFormsIsOpen={checkboxFormsIsOpen}
           />
         )}
-      </main>
+      </section>
       <BackDrop
         isOpen={open}
         checkboxFormsIsOpen={checkboxFormsIsOpen}
