@@ -6,7 +6,6 @@ const UseResturants = () => {
     queryFn: () => getUserRestaurants(),
     staleTime: 1000 * 60,
     refetchOnWindowFocus: false,
- 
   });
 
   return {

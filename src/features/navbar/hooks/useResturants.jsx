@@ -6,8 +6,7 @@ const UseResturants = () => {
     queryFn: () => getUserRestaurants(),
     staleTime: 1000 * 60,
   });
-  console.log(data);
-  
+
   return {
     data,
     error,

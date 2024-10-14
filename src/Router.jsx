@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./features/dashboard/Dashboard";
 import Register from "./features/register/Register";
 import Login from "./features/login/Login";
-
 import Accounts from "./features/accounts/Accounts";
 import { fetchChart } from "./features/navbar/services/chartServices";
 import ManageMenu from "./features/manageMenu/ManageMenu";
@@ -25,7 +24,6 @@ export const ChartQuery = (id) => ({
   refetchOnWindowFocus: false,
   staleTime: 1000 * 60 * 60,
 });
-
 function Router({ children, queryClient }) {
   const selectedRestaurant = useSelector((state) => state.restaurants.selected);
   const restaurants = useSelector((state) => state.restaurants.restaurants);
@@ -33,11 +31,11 @@ function Router({ children, queryClient }) {
     ? restaurants[selectedRestaurant]?.id
     : null;
   console.log(restaurantsId);
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Index />,
+      
       children: [
         {
           path: "/Dashboard",

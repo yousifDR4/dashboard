@@ -1,11 +1,19 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Form, Field, ErrorMessage } from "formik";
 import LoadOptions from "./LoadOptions";
 import { useOutletContext } from "react-router-dom";
-
+import { memo } from "react";
 const DataForm = () => {
-  const [isValid, dirty, setFieldValue, values, cities, countries, setCountry] =
-    useOutletContext();
+  const [
+    isValid,
+    dirty,
+    setFieldValue,
+    values,
+    setCountry,
+    countries,
+    cities,
+    isSubmitting,
+  ] = useOutletContext();
+
   return (
     <Form className="pl-5 pb-28 pt-5" encType="multipart/form-data">
       <section className="grid grid-cols-2 gap-x-10 gap-y-5">
@@ -29,45 +37,25 @@ const DataForm = () => {
             className="text-red-500 text-sm mt-1"
           />
         </div>
-
-        <div>
-          <label
-            htmlFor="images"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Image
-          </label>
-          <Field
-            type="file"
-            id="images"
-            name="images"
-            placeholder="Enter images URL"
-            className="mt-1 block w-full px-4 py-2 border border-white sm:text-sm"
-          />
-          <ErrorMessage
-            name="images"
-            component="div"
-            className="text-red-500 text-sm mt-1"
-          />
-        </div>
         <div>
           <label
             htmlFor="contrary"
             className="block text-sm font-medium text-gray-700"
           >
-            Contrary
+            country
           </label>
           <select
             onChange={(e) => {
-              console.log(values);
-
               console.log(e.target.value);
+              console.log(values);
+              
               setCountry(e.target.value);
-              setFieldValue("contrary", e.target.value);
+              setFieldValue("country", e.target.value);
             }}
-            id="contrary"
-            name="contrary"
-            placeholder="Enter contrary"
+            value={values.country}
+            id="country"
+            name="country"
+            placeholder="Enter country"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <LoadOptions data={countries} Objkey={"name"} />
@@ -80,15 +68,15 @@ const DataForm = () => {
         </div>
         <div>
           <label
-            htmlFor="cityId"
+            htmlFor="city"
             className="block text-sm font-medium text-gray-700"
           >
             City
           </label>
           <Field
             as="select"
-            id="cityId"
-            name="cityId"
+            id="city"
+            name="city"
             placeholder="Enter city ID"
             className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
@@ -96,7 +84,7 @@ const DataForm = () => {
             <LoadOptions data={cities} />
           </Field>
           <ErrorMessage
-            name="cityId"
+            name="city"
             component="div"
             className="text-red-500 text-sm mt-1"
           />
@@ -147,26 +135,6 @@ const DataForm = () => {
         </div>
         <div>
           <label
-            htmlFor="zip"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Zip
-          </label>
-          <Field
-            type="number"
-            id="zip"
-            name="zip"
-            placeholder="Enter zip"
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
-          <ErrorMessage
-            name="zip"
-            component="div"
-            className="text-red-500 text-sm mt-1"
-          />
-        </div>
-        <div>
-          <label
             htmlFor="mobile"
             className="block text-sm font-medium text-gray-700"
           >
@@ -205,26 +173,7 @@ const DataForm = () => {
             className="text-red-500 text-sm mt-1"
           />
         </div>
-        <div>
-          <label
-            htmlFor="cover_image"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Cover Image
-          </label>
-          <Field
-            type="file"
-            id="cover_image"
-            name="cover_image"
-            placeholder="Enter cover image URL"
-            className="mt-1 block w-full px-4 py-2 border border-white"
-          />
-          <ErrorMessage
-            name="cover_image"
-            component="div"
-            className="text-red-500 text-sm mt-1"
-          />
-        </div>
+
         <div>
           <label
             htmlFor="rating"
@@ -284,7 +233,7 @@ const DataForm = () => {
 
       <div className="flex justify-center">
         <button
-          disabled={!(isValid && dirty)}
+          disabled={!(isValid && dirty) || isSubmitting}
           type="submit"
           className="max-w[440px] w-[440px] mt-8 bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 disabled:bg-gray-400 transition-colors"
         >
@@ -295,4 +244,4 @@ const DataForm = () => {
   );
 };
 
-export default DataForm;
+export default memo(DataForm);

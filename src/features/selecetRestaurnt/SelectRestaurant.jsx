@@ -8,6 +8,7 @@ import {
 import UseResturants from "./hooks/useResturants";
 import { setResturants, setSelected } from "../../store/restaurantsSlice";
 import { apiInstance } from "../../utils/config";
+import { removeToken } from "../../store/jwt";
 
 function SelectRestaurant() {
   const dispatchRedux = useDispatch();
@@ -23,6 +24,13 @@ function SelectRestaurant() {
     if (data) {
       console.log(data);
 
+      if (data.status === 401) {
+        removeToken();
+        navgate("/login");
+        return;
+      }
+      console.log(data);
+
       dispatchRedux(setResturants(data.data));
     }
   }, [data]);
@@ -34,9 +42,6 @@ function SelectRestaurant() {
     navgate("/");
   };
   console.log(data);
-  if (data?.status === 401) {
-    navgate("/login");
-  }
 
   return (
     <section className="flex  items-center place-content-center h-[100vh] ">

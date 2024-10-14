@@ -6,10 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/userSlice";
 import { getToken, setToken } from "../../store/jwt";
+import { useQueryClient } from "@tanstack/react-query";
 
 function Login() {
   const dispatchRedux = useDispatch();
   const navigate = useNavigate();
+  const QueryClient = useQueryClient();
   useEffect(() => {
     if (getToken() !== null) {
       navigate("/");
@@ -21,6 +23,7 @@ function Login() {
         console.log(response);
 
         if (response.status === 200) {
+          console.log(response.data.token);
           setToken(response.data.token);
           dispatchRedux(
             setUser({
@@ -29,7 +32,12 @@ function Login() {
               token: response.data.token,
             })
           );
-          navigate("/");
+          QueryClient.invalidateQueries(["Resturants", "Resturants"]).then(
+            () => {
+              console.log("invalidateQueries");
+              navigate("/");
+            }
+          );
         }
       })
       .catch((error) => {

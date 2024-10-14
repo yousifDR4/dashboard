@@ -6,6 +6,7 @@ const useCities = (countryName) => {
     queryKey: ["city for countryName:", countryName],
     queryFn: () => getCities(countryName),
     staleTime: 1000 * 60,
+    refetchOnWindowFocus: false,
   });
 
   return { isLoading, error, data };

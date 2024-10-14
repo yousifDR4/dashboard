@@ -1,49 +1,67 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useCallback, useEffect, useState } from "react";
+import { Formik } from "formik";
+import { memo, useState } from "react";
 import useCities from "../hooks/useCities";
 import useContries from "../hooks/useContries";
 import { TabScroll, TabsContainer } from "../styledcomponents";
 
 import * as Yup from "yup";
-import LoadOptions from "./LoadOptions";
 import { Outlet, useNavigate } from "react-router-dom";
-const init = {
-  name: "",
-  atu: "",
-  ltu: "",
-  images: "",
-  contrary: "",
-  description: "",
-  shisha: "",
-  zip: "",
-  mobile: "",
-  discount: "",
-  cover_image: "",
-  rating: "",
-  street: "",
-  note: "",
-  cityId: "",
-};
+import { useSelector } from "react-redux";
+import { updateRestaurant } from "../service/restaurant";
+import { useQueryClient } from "@tanstack/react-query";
+
 const validationSchema = Yup.object({
   mobile: Yup.number("is number").required("mobile is required"),
   name: Yup.string("is string").required("name is required"),
 });
-const handleSubmit = async (values, { resetForm }) => {};
 const EditResturantForm = () => {
+  const queryClient = useQueryClient();
   const [currentForm, setCurrentForm] = useState(0);
   const [country, setCountry] = useState("iraq");
-  const navgate = useNavigate();
   const {
     isLoading: citiesLoading,
     error: CitiesError,
     data: cities,
-  } = useCities(country);
+  } = useCities("iraq");
   const {
     data: countries,
     error: countriesError,
     isLoading: countriesLoading,
   } = useContries();
-  console.log(country);
+  const navgate = useNavigate();
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  console.log(restaurants);
+
+  const init = {
+    name: restaurants[selectedRestaurant]?.name ?? "",
+    atu: restaurants[selectedRestaurant]?.atu ?? "",
+    ltu: restaurants[selectedRestaurant]?.ltu ?? "",
+    country: restaurants[selectedRestaurant]?.country ?? "",
+    description: restaurants[selectedRestaurant]?.description ?? "",
+    shisha: restaurants[selectedRestaurant]?.shisha ?? "",
+    mobile: restaurants[selectedRestaurant]?.mobile ?? "",
+    discount: restaurants[selectedRestaurant]?.discount ?? "",
+    rating: restaurants[selectedRestaurant]?.rating ?? "",
+    street: restaurants[selectedRestaurant]?.street ?? "",
+    note: restaurants[selectedRestaurant]?.note ?? "",
+    city: restaurants[selectedRestaurant]?.city ?? "",
+  };
+  const handleSubmit = async (values, { resetForm }) => {
+    Object.keys(values).forEach((key) => {
+      if (values[key] === "" || key === "atu" || key === "ltu") {
+        delete values[key];
+      }
+    });
+    console.log(restaurants[selectedRestaurant]);
+
+    const res = await updateRestaurant(
+      restaurants[selectedRestaurant].id,
+      values
+    );
+
+    const k = await queryClient.invalidateQueries(["Resturants", "Resturants"]);
+  };
   return (
     <div>
       <TabScroll>
@@ -82,25 +100,34 @@ const EditResturantForm = () => {
           overflowY: "auto",
         }}
       >
-        <Formik
-          initialValues={init}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          {({ isValid, dirty, setFieldValue, values }) => (
-            <Outlet
-              context={[
-                isValid,
-                dirty,
-                setFieldValue,
-                values,
-                cities,
-                countries,
-                setCountry,
-              ]}
-            />
-          )}
-        </Formik>
+        {restaurants[selectedRestaurant] ? (
+          <Formik
+            initialValues={init}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            {({ isValid, dirty, setFieldValue, values, isSubmitting }) =>
+              citiesLoading || countriesLoading ? (
+                <div>loading</div>
+              ) : (
+                <Outlet
+                  context={[
+                    isValid,
+                    dirty,
+                    setFieldValue,
+                    values,
+                    setCountry,
+                    countries,
+                    cities,
+                    isSubmitting,
+                  ]}
+                />
+              )
+            }
+          </Formik>
+        ) : (
+          <div>loading</div>
+        )}
       </div>
     </div>
   );

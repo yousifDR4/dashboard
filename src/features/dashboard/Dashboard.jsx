@@ -23,6 +23,7 @@ import { setResturants, setSelected } from "../../store/restaurantsSlice";
 import { clearUser } from "../../store/userSlice";
 import { removeToken } from "../../store/jwt";
 import { removeRestaurantId } from "../../utils/selectedResturant";
+import { apiInstance } from "../../utils/config";
 function Dashboard() {
   const navgate = useNavigate();
   const dispatchRedux = useDispatch();
@@ -62,24 +63,29 @@ function Dashboard() {
         width: "100%",
       }}
     >
-      <div className="h-16 flex items-center justify-end">
-        <div className=" pr-5 flex mr-3">
+      <div className="h-16 flex items-center justify-end ">
+        <div className=" pr-5 flex mr-3 space-x-3 mt-2 ">
+          <img
+            src={`${apiInstance.apiUrl}/File/Restaurant/${restaurants[selectedRestaurant]?.id}/Image/${restaurants[selectedRestaurant]?.images}`}
+            className="w-8 h-8 rounded-full"
+            alt=""
+            onError={(e) => {
+              e.target.onerror = null; // Prevents infinite loop if fallback image also fails
+              e.target.src = "/fallback.webp"; // Replace with a path to your fallback image
+            }}
+          />
           {restaurants[selectedRestaurant]?.name ? (
-            restaurants[selectedRestaurant].name
+            <span> {restaurants[selectedRestaurant].name}</span>
           ) : (
             <div>loading</div>
           )}
+
           <button
-            className="ml-1 relative"
+            className="ml-1 mt-1 relative"
             onClick={toggleDropdown}
             id="button"
           >
-            <img
-              src="/changeAccount.svg"
-              className="mt-[2px]"
-              alt=""
-              id="image"
-            />
+            <img src="/changeAccount.svg" className="mb-4" alt="" id="image" />
           </button>
           <div className="relative">
             {openDropdown && (
