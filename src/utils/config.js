@@ -1,5 +1,5 @@
 import axios from "axios";
-
+export const apiKey = import.meta.env.VITE_GOOGLE_KI;
 class api {
   apiUrl = import.meta.env.VITE_API_URL;
 

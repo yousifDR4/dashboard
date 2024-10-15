@@ -31,13 +31,33 @@ export default function Table({
     const isCurrentlySorted = headers[header]?.sorted || false;
     const sorted = [...sortedData].sort((a, b) => {
       const key = headerKeyMap[header];
-      return isCurrentlySorted
-        ? a[key] > b[key]
-          ? -1
-          : 1
-        : a[key] > b[key]
-        ? 1
-        : -1;
+      console.log(new Date(a[key]));
+
+      if (key !== "AttendanceTime") {
+        return isCurrentlySorted
+          ? a[key].toLowerCase() > b[key].toLowerCase()
+            ? -1
+            : 1
+          : a[key].toLowerCase() > b[key].toLowerCase()
+          ? 1
+          : -1;
+      } else {
+        let [, monthDay, yearAtTime] = a[key].split(", ");
+        let [year, time] = yearAtTime.split(" at ");
+
+        const date1 = new Date(`${monthDay} ${year} ${time}`);
+        [, monthDay, yearAtTime] = b[key].split(", ");
+        [year, time] = yearAtTime.split(" at ");
+
+        const date2 = new Date(`${monthDay} ${year} ${time}`);
+        return isCurrentlySorted
+          ? date1 > date2
+            ? -1
+            : 1
+          : date1 > date2
+          ? 1
+          : -1;
+      }
     });
     setSortedData(sorted);
     headers[header].sorted = !isCurrentlySorted; // Update sorting state for the header

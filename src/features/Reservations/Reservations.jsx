@@ -1,29 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import DynamicTable from "../../utils/Table";
+import { convertTime } from "../../utils/convertTime";
+import { useSelector } from "react-redux";
+import useReservations from "./hooks/useReservations";
 
 const Reservations = () => {
+  const selectedRestaurant = useSelector((state) => state.restaurants.selected);
+  const restaurants = useSelector((state) => state.restaurants.restaurants);
+  const {
+    data: test,
+    error,
+    isLoading,
+  } = useReservations(restaurants[selectedRestaurant]?.id);
+
+  const transFormDate = useMemo(() => {
+    if (test) {
+      console.log(test.data);
+
+      return test.data.map((data) => {
+        return {
+          ...data,
+          AttendanceTime: convertTime(data.AttendanceTime),
+        };
+      });
+    }
+    return [];
+  }, [test]);
+  console.log(transFormDate);
+
   const [headers, setHeaders] = useState({
     "": {},
-    "Account Type": {
+    Name: { sorted: false },
+    "Attendance Time": {
       sorted: false,
     },
     Email: {
       sorted: false,
     },
-    Name: { sorted: false },
     Action: { sorted: false },
   });
 
-  const data = [
-    { AccountType: "Admin", email: "admin@example.com", name: "Admin User" },
-    { AccountType: "User", email: "user@example.com", name: "Regular User" },
-    // Add more data objects as needed
-  ];
-
   const headerKeyMap = {
-    "Account Type": "AccountType",
-    Email: "email",
     Name: "name",
+    "Attendance Time": "AttendanceTime",
+    Email: "email",
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +56,7 @@ const Reservations = () => {
     <div className="h-full w-full pt-16 pb-16 flex justify-center overflow-y-hidden overflow-x-hidden">
       <DynamicTable
         headers={headers}
-        data={data}
+        data={transFormDate}
         headerKeyMap={headerKeyMap}
         toggleForm={toggleForm}
         open={isOpen}
