@@ -33,7 +33,11 @@ export default function Table({
       const key = headerKeyMap[header];
       console.log(new Date(a[key]));
 
-      if (key !== "AttendanceTime") {
+      if (
+        key !== "AttendanceTime" &&
+        key !== "isActive" &&
+        key !== "isCancelled"
+      ) {
         return isCurrentlySorted
           ? a[key].toLowerCase() > b[key].toLowerCase()
             ? -1
@@ -41,7 +45,7 @@ export default function Table({
           : a[key].toLowerCase() > b[key].toLowerCase()
           ? 1
           : -1;
-      } else {
+      } else if (key === "AttendanceTime") {
         let [, monthDay, yearAtTime] = a[key].split(", ");
         let [year, time] = yearAtTime.split(" at ");
 
@@ -57,6 +61,14 @@ export default function Table({
           : date1 > date2
           ? 1
           : -1;
+      } else if (key === "isActive" || key === "isCancelled") {
+        return isCurrentlySorted
+          ? a[key] > b[key]
+            ? -1
+            : 1
+          : a[key] > b[key]
+          ? 1
+          : -1;
       }
     });
     setSortedData(sorted);
@@ -70,16 +82,27 @@ export default function Table({
   const setAdddataData = () => {
     // Logic to prepare data for adding a data can go here
   };
+  const item2 = (data, key) => {
+   
 
+    if (key !== "Is Active" && key !== "Is Cancelled") {
+      return data;
+    } else if (key === "Is Active") {
+      console.log(data);
+      return data ? "Active" : "Inactive";
+    } else if (key === "Is Cancelled") {
+      return data ? "Cancelled" : "Not Cancelled";
+    }
+  };
   return (
-    <div className="overflow-x-auto bg-white rounded-2xl border-2 border-solid boreder-[#C8CBD9] shadow-lg md:px-5">
+    <div className="overflow-x-auto bg-white rounded-2xl  border-2 border-solid boreder-[#C8CBD9] shadow-lg md:px-5">
       <section
-        className="h-fit pl-5 pt-5 mb-5 flex space-x-10 w-full"
+        className="h-fit pl-5 pt-5 mb-5 flex space-x-10 w-full justify-between"
         ref={section}
       >
         <span className="w-fit">
-          <p className="font-semibold text-xl mb-1">Restaurants datas</p>
-          <p>Display and Modify datas who can Access the Admin Dashboard</p>
+          <p className="font-semibold text-xl mb-1">Reservations</p>
+          <p>Display and Modify Reservations </p>
         </span>
         <div className="flex-shrink-0 content-center flex">
           <button
@@ -233,7 +256,7 @@ export default function Table({
 
               {Object.keys(headerKeyMap).map((key) => (
                 <td key={key} className="px-6 py-3">
-                  {item[headerKeyMap[key]]}
+                  {item2(item[headerKeyMap[key]], key)}
                 </td>
               ))}
               <td className="px-6 py-3 flex">

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import DynamicTable from "../../utils/Table";
+import DynamicTable from "./components/Table";
 import { convertTime } from "../../utils/convertTime";
 import { useSelector } from "react-redux";
 import useReservations from "./hooks/useReservations";
@@ -34,7 +34,10 @@ const Reservations = () => {
     "Attendance Time": {
       sorted: false,
     },
-    Email: {
+    "Is Active": {
+      sorted: false,
+    },
+    "Is Cancelled": {
       sorted: false,
     },
     Action: { sorted: false },
@@ -43,7 +46,8 @@ const Reservations = () => {
   const headerKeyMap = {
     Name: "name",
     "Attendance Time": "AttendanceTime",
-    Email: "email",
+    "Is Active": "isActive",
+    "Is Cancelled": "isCancelled",
   };
 
   const [isOpen, setIsOpen] = useState(false);
