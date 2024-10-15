@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 export default function Table({
   headers,
   data,
@@ -8,6 +8,10 @@ export default function Table({
   open,
   Form,
   CheckboxForms,
+  deleteItem,
+  pagaination,
+  limit,
+  offset,
 }) {
   const table = useRef(null);
   const section = useRef(null);
@@ -31,7 +35,6 @@ export default function Table({
     const isCurrentlySorted = headers[header]?.sorted || false;
     const sorted = [...sortedData].sort((a, b) => {
       const key = headerKeyMap[header];
-      console.log(new Date(a[key]));
 
       if (
         key !== "AttendanceTime" &&
@@ -83,17 +86,30 @@ export default function Table({
     // Logic to prepare data for adding a data can go here
   };
   const item2 = (data, key) => {
-   
-
     if (key !== "Is Active" && key !== "Is Cancelled") {
       return data;
     } else if (key === "Is Active") {
-      console.log(data);
       return data ? "Active" : "Inactive";
     } else if (key === "Is Cancelled") {
       return data ? "Cancelled" : "Not Cancelled";
     }
   };
+  const pagainationData = useMemo(() => {
+    const arr = [];
+    if (sortedData?.length > 0) {
+      for (let i = offset; i < offset + limit; i++) {
+        if (sortedData[i]) {
+          arr.push(sortedData[i]);
+        } else break;
+      }
+      console.log(arr);
+      return arr;
+    } else {
+      return [];
+    }
+  }, [sortedData, offset]);
+  console.log(pagainationData);
+
   return (
     <div className="overflow-x-auto bg-white rounded-2xl  border-2 border-solid boreder-[#C8CBD9] shadow-lg md:px-5">
       <section
@@ -212,7 +228,7 @@ export default function Table({
           </tr>
         </thead>
         <tbody className="text-center">
-          {sortedData.map((item, index) => (
+          {pagainationData.map((item, index) => (
             <tr
               key={index}
               className="border-y-2 border-solid border-[#EAECF0]"
@@ -270,8 +286,8 @@ export default function Table({
                   <img src="edit.png" className="w-6 h-6" alt="Edit" />
                 </button>
                 <button
-                  onClick={() => {
-                    // Logic to handle delete data can go here
+                  onClick={async () => {
+                    await deleteItem(item.id);
                   }}
                 >
                   <img src="delete.svg" className="w-6 h-6" alt="Delete" />

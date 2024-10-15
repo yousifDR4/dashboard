@@ -50,7 +50,7 @@ function Login() {
   return (
     <main className="flex px-1 items-center place-content-center h-[100vh]">
       <div
-        className="bg-white h-[70vh] rounded-3xl border-2 border-[#C8CBD9] shadow-sm flex-grow md:grow-[0.2]
+        className="bg-white h-fit rounded-3xl border-2 border-[#C8CBD9] shadow-sm flex-grow md:grow-[0.2]
         md:py-10 md:px-14 py-5 px-3 w-[250px] "
       >
         <div className="text-2xl font-bold text-center mb-12 ">Sign in</div>

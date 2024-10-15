@@ -10,6 +10,7 @@ export default function useReservations(id) {
     queryKey: ["reservations:ASC", "reservations:ASC"],
     queryFn: () => getReservationsDSCE(id),
     staleTime: 1000 * 60, // 5 minutes
+    refetchOnWindowFocus: false,
     enabled: !!id,
   });
 

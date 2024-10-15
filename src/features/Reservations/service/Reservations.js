@@ -11,3 +11,11 @@ export const getReservationsDSCE = async (id) => {
     Authorization: `Bearer ${getToken()}`,
   });
 };
+export const DeleteReservations = async (ReservationId, RestaurantId) => {
+  return await apiInstance.delete(
+    `/Reservation/${ReservationId}/restaurant/${RestaurantId}`,
+    {
+      Authorization: `Bearer ${getToken()}`,
+    }
+  );
+};
