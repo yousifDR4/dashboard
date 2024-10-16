@@ -110,14 +110,14 @@ export default function Table({
     }
   }, [sortedData, offset]);
   return (
-    <div className="overflow-x-auto bg-white rounded-2xl  border-2 border-solid boreder-[#C8CBD9] shadow-lg md:px-5">
+    <div className="px-1 md:px-5 overflow-x-hidden bg-white rounded-2xl border-2 border-solid border-[#C8CBD9] shadow-lg ">
       <section
         className="h-fit pl-5 pt-5 mb-5 flex space-x-10 w-full justify-between"
         ref={section}
       >
         <span className="w-fit">
           <p className="font-semibold text-xl mb-1">Reservations</p>
-          <p>Display and Modify Reservations </p>
+          <p>Display and Modify Reservations</p>
         </span>
         <div className="flex-shrink-0 content-center flex">
           <button
@@ -127,146 +127,126 @@ export default function Table({
             }}
           >
             <div className="items-center flex hover:bg-gray-200 rounded-full h-10 px-1">
-              <span>edit</span>
-              <img src="edit.png" className="cursor-pointer w-6 h-6" alt="" />
+              <span>Edit</span>
+              <img
+                src="edit.png"
+                className="cursor-pointer w-6 h-6"
+                alt="Edit"
+              />
             </div>
           </button>
           <button
             className="mt-2 flex flex-grow items-center space-x-1"
             onClick={() => {
-              const keys = Object.keys(checkboxFormsData);
               if (Object.keys(checkboxFormsData).length > 0) {
-                for (let i = 0; i < keys.length; i++) {
-                  // delete data
-                }
+                // delete data logic
               }
             }}
           >
             <div className="items-center flex hover:bg-gray-200 rounded-full h-10 px-1">
               <span>Delete</span>
-              <img src="delete.svg" className="cursor-pointer w-6 h-6" alt="" />
+              <img
+                src="delete.svg"
+                className="cursor-pointer w-6 h-6"
+                alt="Delete"
+              />
             </div>
-          </button>
-          <button
-            onClick={() => {
-              setAdddataData();
-              toggleForm();
-            }}
-            className="bg-[#5A6ACF] flex-grow self-center flex justify-center items-center ml-24 text-white text-nowrap rounded-lg text-center w-44 px-4 pt-[px] h-12"
-          >
-            Add data to Restaurant
           </button>
         </div>
       </section>
-
-      <table className=" " ref={table}>
-        <thead className="bg-[#FCFCFD] border-y-2 border-solid border-[#EAECF0]">
-          <tr>
-            {Object.keys(headers).map((header, index) => (
-              <th key={index} className="px-10 py-3">
-                {header !== "" && header !== "Action" ? (
-                  <div className="flex justify-center">
-                    {header}
-                    <img
-                      src="/down.svg"
-                      alt=""
-                      className={`cursor-pointer transition-all duration-300 ${
-                        headers[header].sorted ? "pr-1 -rotate-180" : "pl-1"
-                      }`}
-                      onClick={() => handleSort(header)}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    {header === "" ? (
-                      <div className="flex justify-center">
-                        <input
-                          type="checkbox"
-                          onClick={(e) => {
-                            console.log(e.target.checked);
-                            if (e.target.checked) {
-                              setSelectedRows(pagainationData);
-                              const table = document
-                                .querySelector("table")
-                                .querySelectorAll('input[type="checkbox"]');
-                              table.forEach((checkbox) => {
-                                checkbox.checked = true;
-                              });
-                            } else {
-                              setSelectedRows([]);
-                              const table = document
-                                .querySelector("table")
-                                .querySelectorAll('input[type="checkbox"]');
-                              table.forEach((checkbox) => {
-                                checkbox.checked = false;
-                              });
-                            }
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex justify-center">{header}</div>
-                    )}
-                  </>
-                )}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="text-center">
-          {pagainationData.map((item, index) => (
-            <tr
-              key={index}
-              className="border-y-2 border-solid border-[#EAECF0]"
-            >
-              <td className="px-6 py-3">
-                <input
-                  type="checkbox"
-                  id={data.id}
-                  onClick={(e) => {
-                    if (e.target.checked) {
-                      setSelectedRows((prev) => {
-                        return [...prev, item];
-                      });
-                    } else {
-                      setSelectedRows((prev) => {
-                        const newData = prev.filter((i) => i.id !== item.id);
-                        return [...newData];
-                      });
-                    }
-                  }}
-                />{" "}
-                {index + 1}
-              </td>
-
-              {Object.keys(headerKeyMap).map((key) => (
-                <td key={key} className="px-6 py-3">
-                  {item2(item[headerKeyMap[key]], key)}
-                </td>
+      <div className="max-h-[600px] overflow-y-auto">
+        <table className="min-w-full">
+          <thead className="bg-[#FCFCFD] border-y-2 border-solid border-[#EAECF0]">
+            <tr>
+              {Object.keys(headers).map((header, index) => (
+                <th key={index} className="px-10 py-3">
+                  {header !== "" && header !== "Action" ? (
+                    <div className="flex justify-center">
+                      {header}
+                      <img
+                        src="/down.svg"
+                        alt=""
+                        className={`cursor-pointer transition-all duration-300 ${
+                          headers[header].sorted ? "pr-1 -rotate-180" : "pl-1"
+                        }`}
+                        onClick={() => handleSort(header)}
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      {header === "" ? (
+                        <div className="flex justify-center">
+                          <input
+                            type="checkbox"
+                            onClick={(e) => {
+                              if (e.target.checked) {
+                                setSelectedRows(pagainationData);
+                                document
+                                  .querySelectorAll('input[type="checkbox"]')
+                                  .forEach((checkbox) => {
+                                    checkbox.checked = true;
+                                  });
+                              } else {
+                                setSelectedRows([]);
+                                document
+                                  .querySelectorAll('input[type="checkbox"]')
+                                  .forEach((checkbox) => {
+                                    checkbox.checked = false;
+                                  });
+                              }
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center">{header}</div>
+                      )}
+                    </>
+                  )}
+                </th>
               ))}
-              <td className="px-6 py-3 flex">
-                <button
-                  className="mr-10"
-                  onClick={() => {
-                    // Logic to handle edit data can go here
-                    toggleForm();
-                  }}
-                >
-                  <img src="edit.png" className="w-6 h-6" alt="Edit" />
-                </button>
-                <button
-                  onClick={async () => {
-                    await deleteItem(item.id);
-                  }}
-                >
-                  <img src="delete.svg" className="w-6 h-6" alt="Delete" />
-                </button>
-              </td>
             </tr>
-          ))}
-        </tbody>
-        <Form data={selectedRows} />
-      </table>
+          </thead>
+          <tbody className="text-center">
+            {pagainationData.map((item, index) => (
+              <tr
+                key={index}
+                className="border-y-2 border-solid border-[#EAECF0]"
+              >
+                <td className="px-6 py-3">
+                  <input
+                    type="checkbox"
+                    id={data.id}
+                    onClick={(e) => {
+                      if (e.target.checked) {
+                        setSelectedRows((prev) => [...prev, item]);
+                      } else {
+                        setSelectedRows((prev) =>
+                          prev.filter((i) => i.id !== item.id)
+                        );
+                      }
+                    }}
+                  />
+                  {index + 1}
+                </td>
+                {Object.keys(headerKeyMap).map((key) => (
+                  <td key={key} className="px-6 py-3">
+                    {item2(item[headerKeyMap[key]], key)}
+                  </td>
+                ))}
+                <td className="px-6 py-3 flex">
+                  <button className="mr-10" onClick={() => toggleForm()}>
+                    <img src="edit.png" className="w-6 h-6" alt="Edit" />
+                  </button>
+                  <button onClick={async () => await deleteItem(item.id)}>
+                    <img src="delete.svg" className="w-6 h-6" alt="Delete" />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <Form data={selectedRows} />
+        </table>
+      </div>
     </div>
   );
 }

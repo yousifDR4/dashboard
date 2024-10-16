@@ -103,50 +103,48 @@ const Reservations = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="h-full w-full pt-16 pb-16  flex flex-col justify-center  items-center overflow-y-hidden ">
-      <div className="h-[700px] overflow-y-auto ">
-        <DynamicTable
-          headers={headers}
-          data={transFormDate}
-          headerKeyMap={headerKeyMap}
-          toggleForm={toggleForm}
-          open={isOpen}
-          deleteItem={deleteItem}
-          pagination={pagination}
-          limit={limit}
-          offset={offset}
-        />
-        <div className="flex justify-center space-x-3 h-12 items-center ">
-          <div className="flex items-center space-x-3">
-            <img
-              onClick={() => {
-                console.log("working");
+    <div className="overflow-y-hidden bg-white w-[86%] mr-auto m-auto  ">
+      <DynamicTable
+        headers={headers}
+        data={transFormDate}
+        headerKeyMap={headerKeyMap}
+        toggleForm={toggleForm}
+        open={isOpen}
+        deleteItem={deleteItem}
+        pagination={pagination}
+        limit={limit}
+        offset={offset}
+      />
+      <div className="flex justify-center space-x-3 h-12 items-center ">
+        <div className="flex items-center space-x-3">
+          <img
+            onClick={() => {
+              console.log("working");
 
-                if (pagination !== 1) setPagination(pagination - 1);
-              }}
-              src="arrow.svg"
-              className="w-10 h-10 cursor-pointer -rotate-180  border-solid border-[#f7f5f1] "
-              alt=""
-            />
-            {renderPaginationNumbers()}
-          </div>
-          <div className="flex items-center space-x-3 ">
-            <h3
-              className="cursor-pointer"
-              onClick={() => setPagination(finalpage)}
-            >
-              {" "}
-              {finalpage !== pagination ? finalpage : ""}
-            </h3>
-            <img
-              onClick={() => {
-                if (finalpage > pagination) setPagination(pagination + 1);
-              }}
-              src="arrow.svg"
-              className="w-10 h-10 cursor-pointer   border-solid border-[#f7f5f1]"
-              alt=""
-            />
-          </div>
+              if (pagination !== 1) setPagination(pagination - 1);
+            }}
+            src="arrow.svg"
+            className="w-10 h-10 cursor-pointer -rotate-180  border-solid border-[#f7f5f1] "
+            alt=""
+          />
+          {renderPaginationNumbers()}
+        </div>
+        <div className="flex items-center space-x-3 ">
+          <h3
+            className="cursor-pointer"
+            onClick={() => setPagination(finalpage)}
+          >
+            {" "}
+            {finalpage !== pagination ? finalpage : ""}
+          </h3>
+          <img
+            onClick={() => {
+              if (finalpage > pagination) setPagination(pagination + 1);
+            }}
+            src="arrow.svg"
+            className="w-10 h-10 cursor-pointer   border-solid border-[#f7f5f1]"
+            alt=""
+          />
         </div>
       </div>
     </div>
