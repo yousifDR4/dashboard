@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import Form from "./Form";
 export default function Table({
   headers,
   data,
   headerKeyMap,
   toggleForm,
   open,
-  Form,
   CheckboxForms,
   deleteItem,
   pagaination,
@@ -15,6 +15,7 @@ export default function Table({
 }) {
   const table = useRef(null);
   const section = useRef(null);
+  const [selectedRows, setSelectedRows] = useState([]);
   const [sortedData, setSortedData] = useState(data);
   const [checkboxFormsData, setCheckboxFormsData] = useState({});
   const [isCheckboxFormsOpen, setCheckboxFormsOpen] = useState(false);
@@ -108,8 +109,6 @@ export default function Table({
       return [];
     }
   }, [sortedData, offset]);
-  console.log(pagainationData);
-
   return (
     <div className="overflow-x-auto bg-white rounded-2xl  border-2 border-solid boreder-[#C8CBD9] shadow-lg md:px-5">
       <section
@@ -124,9 +123,7 @@ export default function Table({
           <button
             className="mr-10 mt-2 flex flex-grow items-center space-x-1 rounded-full"
             onClick={() => {
-              if (Object.keys(checkboxFormsData).length > 0) {
-                toggleCheckboxForms();
-              }
+              if (selectedRows.length > 0) toggleForm();
             }}
           >
             <div className="items-center flex hover:bg-gray-200 rounded-full h-10 px-1">
@@ -188,18 +185,7 @@ export default function Table({
                           onClick={(e) => {
                             console.log(e.target.checked);
                             if (e.target.checked) {
-                              setCheckboxFormsData(() => {
-                                const data = {};
-                                sortedData.map((data) => {
-                                  data[data.id] = {
-                                    id: data.id,
-                                    email: data.email,
-                                    name: data.name,
-                                    AccountType: data.AccountType,
-                                  };
-                                });
-                                return data;
-                              });
+                              setSelectedRows(pagainationData);
                               const table = document
                                 .querySelector("table")
                                 .querySelectorAll('input[type="checkbox"]');
@@ -207,7 +193,7 @@ export default function Table({
                                 checkbox.checked = true;
                               });
                             } else {
-                              setCheckboxFormsData({});
+                              setSelectedRows([]);
                               const table = document
                                 .querySelector("table")
                                 .querySelectorAll('input[type="checkbox"]');
@@ -239,30 +225,13 @@ export default function Table({
                   id={data.id}
                   onClick={(e) => {
                     if (e.target.checked) {
-                      setCheckboxFormsData((prev) => {
-                        console.log({
-                          ...prev,
-                          [data.id]: {
-                            id: data.id,
-                            email: data.email,
-                            name: data.name,
-                            AccountType: data.AccountType,
-                          },
-                        });
-                        return {
-                          ...prev,
-                          [data.id]: {
-                            id: data.id,
-                            email: data.email,
-                            name: data.name,
-                            AccountType: data.AccountType,
-                          },
-                        };
+                      setSelectedRows((prev) => {
+                        return [...prev, item];
                       });
                     } else {
-                      setCheckboxFormsData((prev) => {
-                        delete prev[data.id];
-                        return { ...prev };
+                      setSelectedRows((prev) => {
+                        const newData = prev.filter((i) => i.id !== item.id);
+                        return [...newData];
                       });
                     }
                   }}
@@ -296,6 +265,7 @@ export default function Table({
             </tr>
           ))}
         </tbody>
+        <Form data={selectedRows} />
       </table>
     </div>
   );

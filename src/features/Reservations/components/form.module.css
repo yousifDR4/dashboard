@@ -1,0 +1,17 @@
+.form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  animation: moveDown 0.6s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes moveDown {
+  from {
+    transform: translateY(-100%);
+    transform: translatex(-50%);
+    top: -500px;
+  }
+  to {
+    transform: translate(-50%, -50%);
+  }
+}
