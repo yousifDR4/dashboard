@@ -110,7 +110,7 @@ export default function Table({
     }
   }, [sortedData, offset]);
   return (
-    <div className="px-1 md:px-5 overflow-x-hidden bg-white rounded-2xl border-2 border-solid border-[#C8CBD9] shadow-lg ">
+    <div className="px-3 md:px-5 overflow-x-hidden bg-white rounded-2xl border-2 border-solid border-[#C8CBD9] shadow-lg ">
       <section
         className="h-fit pl-5 pt-5 mb-5 flex space-x-10 w-full justify-between"
         ref={section}
@@ -154,7 +154,7 @@ export default function Table({
           </button>
         </div>
       </section>
-      <div className="max-h-[600px] overflow-y-auto">
+      <div className="max-h-[70vh] overflow-y-auto">
         <table className="min-w-full">
           <thead className="bg-[#FCFCFD] border-y-2 border-solid border-[#EAECF0]">
             <tr>

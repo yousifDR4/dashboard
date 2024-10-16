@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import DynamicTable from "./components/Table";
 import { convertTime } from "../../utils/convertTime";
 import { useSelector } from "react-redux";
@@ -30,7 +30,7 @@ const Reservations = () => {
     return [];
   }, [test]);
 
-  const [headers, setHeaders] = useState({
+  const [headers] = useState({
     "": {},
     Name: { sorted: false },
     "Attendance Time": {
@@ -63,7 +63,7 @@ const Reservations = () => {
         if (res.status === 200) {
           queryClient
             .invalidateQueries(["reservations:ASC", "reservations:ASC"])
-            .then((res) => {})
+            .then(() => {})
             .catch((err) => {
               console.log(err);
             });
@@ -103,7 +103,7 @@ const Reservations = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="overflow-y-hidden bg-white w-[86%] mr-auto m-auto  ">
+    <div className="overflow-y-hidden bg-white w-[86%] mr-auto m-auto  px-3 md:px-5">
       <DynamicTable
         headers={headers}
         data={transFormDate}
